@@ -1,0 +1,10 @@
+angular.module('Cafepay.Controllers')
+
+.controller('FeedbackController',function($scope,$http){
+	
+
+
+
+
+	
+})

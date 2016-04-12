@@ -1,0 +1,17 @@
+<div class="container">
+	
+
+
+	<h1>hm</h1>
+
+		<table class="table">
+			<tr ng-repeat="code in codes">
+				<td><qrcode version="5" error-correction-level="M" size="200" data="{{code.hmac}}"></qrcode></td>
+				<td>QR code ID: {{code.shortid}}</td>
+			</tr>
+		</table>
+
+			
+			
+	
+</div>

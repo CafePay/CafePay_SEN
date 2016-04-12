@@ -1,0 +1,60 @@
+
+      <div class="container">
+        <h3>Select food Item</h3>
+        <!--<div class="btn-group">
+          <button onclick="myFunction()" type="button" class="btn btn-primary">a</button>
+          <button type="button" class="btn btn-primary">b</button>
+          <button type="button" class="btn btn-primary">c</button>
+          <button type="button" class="btn btn-primary">d</button>
+          <button type="button" class="btn btn-primary">e</button>
+          <button type="button" class="btn btn-primary">f</button>
+          <button type="button" class="btn btn-primary">g</button>
+          <button type="button" class="btn btn-primary">h</button>
+          <button type="button" class="btn btn-primary">i</button>
+          <button type="button" class="btn btn-primary">j</button>
+          <button type="button" class="btn btn-primary">k</button>
+          <button type="button" class="btn btn-primary">l</button>
+          <button type="button" class="btn btn-primary">m</button>
+          <button type="button" class="btn btn-primary">n</button>
+          <button type="button" class="btn btn-primary">o</button>
+          <button type="button" class="btn btn-primary">p</button>
+          <button type="button" class="btn btn-primary">q</button>
+          <button type="button" class="btn btn-primary">r</button>
+          <button type="button" class="btn btn-primary">s</button>
+          <button type="button" class="btn btn-primary">t</button>
+          <button type="button" class="btn btn-primary">u</button>
+          <button type="button" class="btn btn-primary">v</button>
+          <button type="button" class="btn btn-primary">w</button>
+          <button type="button" class="btn btn-primary">x</button>
+          <button type="button" class="btn btn-primary">y</button>
+          <button type="button" class="btn btn-primary">z</button>
+        </div>-->
+      </div>
+
+
+      <div class="container">
+        <h4>Food Item</h4>
+        <input type="text" ng-model="search">            
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Counters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in items | filter : search"> 
+              <td>{{item.name}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.available_at}}</td>
+              <td>{{counter[$index]}}</td>
+              <td><button type="button" class="btn btn-success" ng-click="add($index)" ng-disabled = " items[$index].price+total > dummy">+</button></td>
+              <td><button type="button" class="btn btn-danger" ng-click="delete($index)" ng-disabled="counter[$index] == 0">-</button></td>
+            </tr>
+            
+          </tbody>
+        </table>
+        
+            <button class="btn btn-primary" ng-click="purchase()"> Purchase</button>
+      </div>

@@ -1,0 +1,55 @@
+ <div id="reader" style="width:300px;height:250px">
+ </div>
+ <span id="read" class="center"></span>
+ <span id="read_error" class="center"></span>
+ <span id="vid_error" class="center"></span>
+ 	<script type="text/javascript" src="js/src/grid.js"></script>
+<script type="text/javascript" src="js/src/version.js"></script>
+<script type="text/javascript" src="js/src/detector.js"></script>
+<script type="text/javascript" src="js/src/formatinf.js"></script>
+<script type="text/javascript" src="js/src/errorlevel.js"></script>
+<script type="text/javascript" src="js/src/bitmat.js"></script>
+<script type="text/javascript" src="js/src/datablock.js"></script>
+<script type="text/javascript" src="js/src/bmparser.js"></script>
+<script type="text/javascript" src="js/src/datamask.js"></script>
+<script type="text/javascript" src="js/src/rsdecoder.js"></script>
+<script type="text/javascript" src="js/src/gf256poly.js"></script>
+<script type="text/javascript" src="js/src/gf256.js"></script>
+<script type="text/javascript" src="js/src/decoder.js"></script>
+<script type="text/javascript" src="js/src/qrcode.js"></script>
+<script type="text/javascript" src="js/src/findpat.js"></script>
+<script type="text/javascript" src="js/src/alignpat.js"></script>
+<script type="text/javascript" src="js/src/databr.js"></script>
+
+ <script>
+
+console.log("jay 6")
+var count = true;
+$('#reader').html5_qrcode(function(data){
+			console.log(data)
+			$('#read').html(data);
+			if(count){
+				count = false;
+			$.post('/vendor/scanqrcode',data,function(response){
+				console.log(response)
+				count = true;
+
+				setTimeout(function(){
+				console.log("oho")
+			},5000)
+			})
+
+			
+		}
+		},
+		function(error){
+			$('#read_error').html(error);
+		}, function(videoError){
+			$('#vid_error').html(videoError);
+		}
+	);
+
+
+
+
+ </script>

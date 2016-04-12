@@ -1,0 +1,39 @@
+
+<div class="container">
+
+<div class="col-sm-6 col-sm-offset-3">
+	
+	<div class="pen-title">
+	<h1>Cafepay</h1>
+	</div>
+	<h2 style="text-transform: uppercase; padding-bottom: 16px; color: #fae596"><span class="fa fa-sign-in"></span> Forgot Password</h2>
+
+	<!-- show any messages that come back with authentication -->
+	
+		<div class="alert alert-danger" ng-if="nouser">No user found.</div>
+		<div class="alert alert-success" ng-if="done">Password sent to your email successfully.</div>
+		
+	
+	<!-- LOGIN FORM -->
+	<form>
+		<div class="form-group">
+			<label style="color: #fae596">Email</label>
+			<input type="text" class="form-control" name="email" ng-model="user.email">
+		</div>
+		
+
+		<button type="submit" class="btn md cta" ng-click="send(user)">Send</button>
+	</form>
+
+	<hr >
+
+	
+	<p style="color: #fae596">Or go <a ui-sref="home" style="color: #98dafc">Home</a>.</p>
+	<!--<p style="color: #fae596">Don't remember password - <a ui-sref="forgot" style="color: #98dafc">Forgot password?</a>.</p>-->
+
+
+</div>
+
+</div>
+
+

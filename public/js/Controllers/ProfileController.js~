@@ -1,0 +1,15 @@
+angular.module('Cafepay.Controllers')
+
+.controller('SignupController',function($scope,$http){
+
+
+	$http.get('/profileInfo').success(function(response){
+
+		$scope.message = response.data;
+	})
+
+
+
+
+	
+})
