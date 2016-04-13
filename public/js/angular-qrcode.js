@@ -5,7 +5,8 @@
  */
 
 angular.module('monospaced.qrcode', [])
-  .directive('qrcode', function($window,$rootScope) {
+  .directive('qrcode', function($window,$rootScope) 
+  {
 
     var canvas2D = !!$window.CanvasRenderingContext2D,
         levels = {
@@ -84,7 +85,7 @@ angular.module('monospaced.qrcode', [])
               size = parseInt(value, 10) || modules * 2;
               tile = size / modules;
               //canvas.width = canvas.height = size*2;
-              canvas.width = 250;
+              canvas.width = 280;
               canvas.height = 300;
               canvas.style.backgroundColor = "rgba(255,255,255,0)";
             },

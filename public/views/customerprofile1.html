@@ -21,8 +21,9 @@
         <a class="navbar-brand"><span>Cafe</span>Pay</a>
         <ul class="user-menu">
           <li class="dropdown pull-right">
-            <a  class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> User <span class="caret"></span></a>
+            <a  class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> {{uname}}<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
+              <li><a><svg class="glyph stroked folder"><use xlink:href="#stroked-folder"/></svg>{{balance}}</a></li>
               <li><a ui-sref=".changepassword"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Change Password</a></li>
               <li><a ui-sref="home"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
             </ul>
@@ -44,6 +45,7 @@
       <li><a ui-sref=".generate"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg>Generate QR Code</a></li>
       <li><a ui-sref=".recharge"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg>Request Recharge</a></li>
       <li><a ui-sref=".history"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"/></svg>Transaction History</a></li>
+      <li><a ui-sref=".logswr"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"/></svg>Transaction logs wr</a></li>
       <li><a ui-sref=".complaint"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg>File Complaint</a></li>
       <li><a ui-sref=".feedback"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg></use></svg>Feedback</a></li>
       

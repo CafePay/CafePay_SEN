@@ -15,6 +15,8 @@ var QR = require('./models/qrcode');
 var Withdrawal = require('./models/withdrawal');
 var Feedback = require('./models/feedback');
 var Complaint = require('./models/complaint');
+var Transaction = require('./models/transaction');
+var Transactionwr = require('./models/transactionwr');
 //var Recharge = require('./models/recharge');
 var Temptoken = require('./models/temptoken');
 var config = require('../config/database');
@@ -55,7 +57,11 @@ module.exports = function(app, vendor){
 
 
 	vendor.get('/profile', function(req, res) {
-			res.json({success : true});
+			User.findOne({username : req.decoded.username})
+				.exec(function(err,doc){
+					res.json({success : true, username : req.decoded.username,balance : doc.balance});
+				})
+			
 	});
 
 vendor.post('/sendcomplaint',function(req,res){
@@ -144,10 +150,197 @@ vendor.post('/requestwithdrawal',function(req,res){
 			})
 
 })
+var last;
+vendor.post('/scanqrcode/hmac',function(req,res){
+	console.log(req.body.hmac)
 
-vendor.post('/scanqrcode',function(req,res){
-	console.log(req.body)
-	res.json({gaurav : "fuckerrrr"})
+	if (req.body.hmac == last){
+		res.json({success : false , message : "scannedlast"})
+		return;
+	}
+	/*if( req.body.hmac == last)
+		res.json({ ellaa : "avi gyu ek var "})
+	else
+		res.json({gaurav : "fuckerrrr"})*/
+
+	console.log("ja rha he")
+	var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
+	decoded = abc;
+
+	QR.findOne({hmac : req.body.hmac})
+	  .populate('item', 'name price')
+	  .populate('owner', 'username')
+	  .select('shortid item hmac owner ctime')
+	  .exec(function(err,qr){
+
+	  	if(!qr){
+	  		res.json({success : false , message : "invalid"});
+	  		return;
+	  	}
+
+	  	if(qr.scanned == true){
+	  		res.json({success : false , message : "invalid"});
+	  		return;
+	  	}
+
+	  	if(qr){
+
+	  		User.findOne({_id : decoded._id})
+	  			.exec(function(err,vendor){
+
+
+
+	  				vendor.balance = vendor.balance + qr.item[0].price;
+
+	  				vendor.save();
+
+
+	  				var log = new Transaction({	customer : qr.owner._id,
+	  											vendor : decoded._id,
+	  											code : qr,
+	  											item : qr.item[0]._id,
+	  											ctime : new Date().toString()
+
+											});
+	  				log.save();
+	  				qr.scanned = true;
+	  				last = qr.hmac;
+	  				qr.remove();
+	  				//console.log(qr)
+	  				
+
+				  	//console.log(qr);
+				  	res.json({success : true,message : "done", balance : vendor.balance})
+	  				//transection
+	  			})
+
+
+
+
+
+
+	  		
+
+	  	}
+	  })
+
+
+})
+
+vendor.post('/scanqrcode/shortid',function(req,res){
+	console.log(req.body.id)
+
+	/*if (req.body.hmac == last){
+		res.json({success : false , err : "lasttime"})
+		return;
+	}*/
+	/*if( req.body.hmac == last)
+		res.json({ ellaa : "avi gyu ek var "})
+	else
+		res.json({gaurav : "fuckerrrr"})*/
+
+	console.log("ja rha he")
+	var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
+	decoded = abc;
+
+	QR.findOne({shortid : req.body.id})
+	  .populate('item', 'name price')
+	  .populate('owner', 'username')
+	  .select('shortid item hmac owner ctime')
+	  .exec(function(err,qr){
+
+
+	  	if(!qr){
+	  		res.json({success : false , message : "invalid"});
+	  		return;
+	  	}
+
+	  	if(qr.scanned == true){
+	  		res.json({success : false , message : "invalid"});
+	  		return;
+	  	}
+
+	  	if(qr){
+
+	  		User.findOne({_id : decoded._id})
+	  			.exec(function(err,vendor){
+
+	  				vendor.balance = vendor.balance + qr.item[0].price;
+
+	  				vendor.save();
+
+
+	  				var log = new Transaction({	customer : qr.owner._id,
+	  											vendor : decoded._id,
+	  											code : qr,
+	  											item : qr.item[0]._id,
+	  											ctime : new Date().toString()
+
+											});
+	  				log.save();
+	  				last = qr.hmac;
+	  				qr.scanned = true;
+	  				qr.remove();
+	  				//console.log(qr)
+	  				
+
+				  	//console.log(qr);
+				  	res.json({success : true,message : "done", balance : vendor.balance})
+	  				//transection
+	  			})
+
+
+
+
+
+
+	  		
+
+	  	}
+	  })
+
+
+})
+
+
+vendor.get('/getlogs',function(req,res){
+
+
+
+	Transaction.find({vendor : req.decoded._id})
+
+			   .populate('item' , 'name price')
+			   .populate('customer' , 'username')
+			   .exec(function(err,logs){
+
+
+			   		if(logs)
+			   			res.json({success : true , data : logs});
+			   })
+
+
+
+
+
+})
+
+vendor.get('/getwrlogs',function(req,res){
+
+
+
+	Transactionwr.find({owner : req.decoded.username})
+			   
+			   .exec(function(err,logs){
+
+
+			   		if(logs)
+			   			res.json({success : true , data : logs});
+			   })
+
+
+
+
+
 })
 	
 }

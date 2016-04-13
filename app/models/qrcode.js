@@ -6,7 +6,8 @@ var qrSchema = mongoose.Schema({
 	hmac : String,
 	owner:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	item: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
-	ctime: String
+	ctime: String,
+	scanned : Boolean
 });
 
 module.exports = mongoose.model('Qrcode', qrSchema);

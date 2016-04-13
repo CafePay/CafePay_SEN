@@ -1,9 +1,53 @@
- <div id="reader" style="width:300px;height:250px">
+
+
+<scanner ng-if"show"></scanner>
+
+
+<!--<span id="read" class="center"></span>
+					 <span id="read_error" class="center"></span>
+					 <span id="vid_error" class="center"></span>-->
+
+ 
+
+
+
+
+
+<div class="bootstrap-iso">
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6 col-sm-6 col-xs-12">
+    <form method="post">
+     <div class="form-group ">
+      <label class="control-label requiredField" for="name">
+       Token ID
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="name" name="name" type="text" ng-model = "user.id"/>
+      <span class="help-block" id="hint_name">
+       Enter if Scanner doesn't work
+      </span>
+     </div>
+     <div class="form-group">
+      <div>
+       <button class="btn btn-primary " name="submit" type="submit" ng-click="send(user)">
+        Submit
+       </button>
+      </div>
+     </div>
+    </form>
+   </div>
+  </div>
  </div>
- <span id="read" class="center"></span>
- <span id="read_error" class="center"></span>
- <span id="vid_error" class="center"></span>
- 	<script type="text/javascript" src="js/src/grid.js"></script>
+</div>
+
+	<div id="scanned" class="alert alert-danger" ng-if="done">Email already taken</div>
+	<div id ="notvalid" class="alert alert-danger" ng-if="invalid">Username already taken</div>
+
+
+	<script type="text/javascript" src="js/src/grid.js"></script>
 <script type="text/javascript" src="js/src/version.js"></script>
 <script type="text/javascript" src="js/src/detector.js"></script>
 <script type="text/javascript" src="js/src/formatinf.js"></script>
@@ -21,26 +65,29 @@
 <script type="text/javascript" src="js/src/alignpat.js"></script>
 <script type="text/javascript" src="js/src/databr.js"></script>
 
- <script>
+
+
+ <!--<script>
 
 console.log("jay 6")
-var count = true;
+//var count = null;
 $('#reader').html5_qrcode(function(data){
 			console.log(data)
 			$('#read').html(data);
-			if(count){
-				count = false;
-			$.post('/vendor/scanqrcode',data,function(response){
+			var send = { hmac : data};
+			//if(count){
+			///	count = false;
+			$.post('/vendor/scanqrcode',send,function(response){
 				console.log(response)
-				count = true;
+				//count = true;
 
-				setTimeout(function(){
+				/*setTimeout(function(){
 				console.log("oho")
-			},5000)
+			},5000)*/
 			})
 
 			
-		}
+	//	}
 		},
 		function(error){
 			$('#read_error').html(error);
@@ -52,4 +99,4 @@ $('#reader').html5_qrcode(function(data){
 
 
 
- </script>
+ </script>-->

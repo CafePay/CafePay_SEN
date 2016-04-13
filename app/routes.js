@@ -15,6 +15,8 @@ var Item = require('./models/item');
 var QR = require('./models/qrcode');
 var Feedback = require('./models/feedback');
 var Complaint = require('./models/complaint');
+var Transaction = require('./models/transaction');
+var Transactionwr = require('./models/transactionwr');
 var Recharge = require('./models/recharge');
 var Temptoken = require('./models/temptoken');
 var config = require('../config/database');
@@ -574,8 +576,34 @@ customer.post('/requestrecharge',function(req,res){
 
 
 
+	customer.get('/getlogs',function(req,res){
+
+
+
+	Transaction.find({customer : req.decoded._id})
+			   .populate('item' , 'name price')
+			   .populate('vendor' , 'username')
+			   .exec(function(err,logs){
+
+
+			   		if(logs)
+			   			res.json({success : true , data : logs});
+			   })
+
+
+
+
+
+})
+
+
+
 	customer.get('/profile', mid,mid1, function(req, res) {
-			res.json({success : true});
+			User.findOne({username : req.decoded.username})
+				.exec(function(err,doc){
+					res.json({success : true, username : req.decoded.username, balance : doc.balance});
+				})
+			
 	});
 
 	
@@ -621,7 +649,8 @@ customer.post('/requestrecharge',function(req,res){
 																														owner : decoded._id,
 																														item: data._id,
 																														ctime: gentime,
-																														hmac : mac
+																														hmac : mac,
+																														scanned : false
 
 																													});
 																													
@@ -869,7 +898,7 @@ customer.post('/requestrecharge',function(req,res){
 															console.log(user.balance)
 															//console.log(user.balance)
 													
-															res.json({ success : true,amount : user.balance})
+															res.json({ success : true,balance : user.balance})
 
 														
 
@@ -993,6 +1022,25 @@ customer.get("/myqrcodes", function(req,res){
 	  	//console.log(codes)
 	  	res.json({success : true, data : codes})
 	  })
+})
+
+customer.get('/getwrlogs',function(req,res){
+
+
+
+	Transactionwr.find({owner : req.decoded.username})
+			   
+			   .exec(function(err,logs){
+
+
+			   		if(logs)
+			   			res.json({success : true , data : logs});
+			   })
+
+
+
+
+
 })
 function isLoggedIn(req, res, next) {
 

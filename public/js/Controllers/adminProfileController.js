@@ -15,6 +15,7 @@ angular.module('Cafepay.Controllers')
 		else if(response.err == "forbidden"){
 			$location.path("/forbidden")
 		}
+		$scope.uname = response.username;
 		/*if(message == err)
 			$location.path('/')*/
 	})

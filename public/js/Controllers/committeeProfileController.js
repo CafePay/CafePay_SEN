@@ -2,7 +2,7 @@ angular.module('Cafepay.Controllers')
 
 .controller('committeeProfileController',function($scope,$http,$location,token){
 	token.setnotoken(false);
-
+	$scope.uname;
 	$http.get('/committee/profile').success(function(response){
 
 		//$scope.message = response;
@@ -15,6 +15,8 @@ angular.module('Cafepay.Controllers')
 		else if(response.err == "forbidden"){
 			$location.path("/forbidden")
 		}
+
+		$scope.uname = response.username;
 		/*if(message == err)
 			$location.path('/')*/
 	})

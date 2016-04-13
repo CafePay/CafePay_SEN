@@ -1,4 +1,4 @@
-angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','uiRouterStyles','monospaced.qrcode'])
+angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','uiRouterStyles','monospaced.qrcode','custom.dir'])
 
 
 .config(function($stateProvider, $urlRouterProvider,$locationProvider) {
@@ -18,7 +18,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         })
         .state('forbidden', {
             url: '/forbidden',
-            templateUrl: 'views/forbidden.html',
+            templateUrl: 'views/forbidden.html'
             //controller: 'vendorProfileController',
             /*data: {
                 css: 'css/vendorprofile.css'
@@ -57,7 +57,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         .state('vendor.scan', {
             url: '/scanqrcodes',
             templateUrl: 'views/vendorscan.html',
-            //controller: 'vendorScanController',
+            controller: 'vendorScanController'
             /*data: {
                 css: 'css/generate1.css'
             }*/
@@ -75,7 +75,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         .state('customer.recharge', {
             url: '/recharge',
             templateUrl: 'views/customerrecharge.html',
-            controller: 'customerRechargeController',
+            controller: 'customerRechargeController'
             /*data: {
                 css: 'css/profile1.css'
             }*/
@@ -85,7 +85,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         .state('vendor.withdrawal', {
             url: '/withdrawal',
             templateUrl: 'views/vendorwithdrawal.html',
-            controller: 'vendorWithdrawalController',
+            controller: 'vendorWithdrawalController'
             /*data: {
                 css: 'css/profile1.css'
             }*/
@@ -93,11 +93,20 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         })
         .state('customer.history', {
             url: '/history',
-            templateUrl: 'views/customerprofile.html',
-            controller: 'customerProfileController',
-            /*data: {
-                css: 'css/profile1.css'
-            }*/
+            templateUrl: 'views/customerhistory.html',
+            controller: 'customerHistoryController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+        .state('vendor.history', {
+            url: '/history',
+            templateUrl: 'views/vendorhistory.html',
+            controller: 'vendorHistoryController',
+            data: {
+                css: 'css/styles.css'
+            }
 
         })
         .state('customer.complaint', {
@@ -145,6 +154,24 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             }
 
         })
+        .state('committee.changepassword', {
+            url: '/changepassword',
+            templateUrl: 'views/changepassword.html',
+            controller: 'ChangepasswordController',
+            data: {
+                css: 'css/changepassword.css'
+            }
+
+        })
+        .state('admin.changepassword', {
+            url: '/changepassword',
+            templateUrl: 'views/changepassword.html',
+            controller: 'ChangepasswordController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
 
         .state('login', {
             url: '/login',
@@ -175,6 +202,80 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/admin',
             templateUrl: 'views/adminprofile1.html',
             controller: 'adminProfileController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+
+         .state('admin.logs', {
+            url: '/logs',
+            templateUrl: 'views/adminlogs.html',
+            controller: 'adminLogController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+
+         .state('admin.logswr', {
+            url: '/logs',
+            templateUrl: 'views/adminlogswr.html',
+            controller: 'adminLogwrController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+         .state('customer.logswr', {
+            url: '/logs',
+            templateUrl: 'views/customerlogswr.html',
+            controller: 'customerLogwrController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+         .state('vendor.logswr', {
+            url: '/logs',
+            templateUrl: 'views/vendorlogswr.html',
+            controller: 'vendorLogwrController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+         .state('committee.feeds', {
+            url: '/feedbacks',
+            templateUrl: 'views/committeefeedback.html',
+            controller: 'committeeFeedbackController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+         .state('committee.recharge', {
+            url: '/approverecharge',
+            templateUrl: 'views/committeerecharge.html',
+            controller: 'committeeRechargeController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+         .state('committee.withdrawal', {
+            url: '/approvewithdrawal',
+            templateUrl: 'views/committeewithdrawal.html',
+            controller: 'committeeWithdrawalController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })
+         .state('admin.complaints', {
+            url: '/complaints',
+            templateUrl: 'views/admincomplaint.html',
+            controller: 'adminComplaintController',
             data: {
                 css: 'css/styles.css'
             }

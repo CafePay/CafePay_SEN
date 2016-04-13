@@ -3,6 +3,10 @@ angular.module('Cafepay.Controllers')
 .controller('customerProfileController',function($scope,$http,$location,token){
 	token.setnotoken(false);
 
+	$scope.$on('balance',function(event,data){
+		$scope.balance = data.data;
+	})
+
 	$http.get('/customer/profile').success(function(response){
 
 		//$scope.message = response;
@@ -15,6 +19,9 @@ angular.module('Cafepay.Controllers')
 		else if(response.err == "forbidden"){
 			$location.path("/forbidden")
 		}
+
+				$scope.uname = response.username;
+				$scope.balance = response.balance
 		/*if(message == err)
 			$location.path('/')*/
 	})

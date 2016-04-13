@@ -1,0 +1,37 @@
+
+      
+
+
+      <div class="container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>ID</th>
+              <th>Item</th>
+              <th>Price</th>
+              <th>customer</th>
+              <th>generatetime</th>
+              <th>scantime</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr ng-repeat="log in logs | filter : search">
+              <td>{{$index+1}}</td>
+              <td>{{log.code.shortid}}</td>
+              <td>{{log.item.name}}</td>
+              <td>{{log.item.price}}</td>
+              <td>{{log.customer.username}}</td>
+              <td>{{log.ctime | date: 'yyyy-MM-dd h:mm:ss'}}</td>
+              <td>{{log.ctime | date: 'yyyy-MM-dd h:mm:ss'}}</td>
+              
+            </tr>
+            
+          </tbody>
+        </table>
+        
+            
+

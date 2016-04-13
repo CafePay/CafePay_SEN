@@ -6,6 +6,10 @@ var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser')
 var User = require('./models/user');
 var Item = require('./models/item');
+/*var dummy = Item({name:"tea",
+				  price: 10,
+				  available_at: [1,3,5,7]})
+dummy.save()*/
 var nodemailer = require("nodemailer");
 var generator = require("generate-password");
 var generatorOptions={

@@ -20,10 +20,10 @@
         <a class="navbar-brand" ><span>Cafe</span>Pay</a>
         <ul class="user-menu">
           <li class="dropdown pull-right">
-            <a  class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> User <span class="caret"></span></a>
+            <a  class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> {{uname}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Change Password</a></li>
-              <li><a href="#"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+              <li><a href=".changepassword"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Change Password</a></li>
+              <li><a href="home" ng-click="logout()"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -39,10 +39,10 @@
       </div>
     </form>
     <ul class="nav menu">
-      <li><a href=""><svg class="glyph stroked checkmark"><use xlink:href="#stroked-checkmark"/></svg>Approve Recharge</a></li>
-      <li><a href=""><svg class="glyph stroked hourglass"><use xlink:href="#stroked-hourglass"/></svg></svg>Approve Withdrawal</a></li>
+      <li><a ui-sref=".recharge"><svg class="glyph stroked checkmark"><use xlink:href="#stroked-checkmark"/></svg>Approve Recharge</a></li>
+      <li><a ui-sref=".withdrawal"><svg class="glyph stroked hourglass"><use xlink:href="#stroked-hourglass"/></svg></svg>Approve Withdrawal</a></li>
       
-      <li><a href=""><svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages"/></svg>
+      <li><a ui-sref=".feeds"><svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages"/></svg>
 
 Recieved Feedback</a></li>
       
@@ -52,13 +52,14 @@ Recieved Feedback</a></li>
   <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">     
     
     
-    <div class="row">
-      <div class="col-lg-12">
-        <h1 class="page-header">Dashboard</h1>
-      </div>
+
+    
+    <div id="main2">
+
+        
+      <div ui-view></div>
+
     </div>
-    
-    
   </div>  
 
   <script>

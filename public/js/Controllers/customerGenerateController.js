@@ -2,13 +2,14 @@ angular.module('Cafepay.Controllers')
 
 .controller('customerGenerateController',function($scope,$http){
 	
-	$http.get('/customer/getamount').success(function(response){
+	/*$http.get('/customer/getamount').success(function(response){
 
 					//console.log(response)
 					$scope.dummy = response.amount;
 					console.log(response)
 					
-	});
+	});*/
+	$dummy = $scope.$parent.balance;
 	$scope.total = 0;
 	$scope.counter = [];
 
@@ -55,10 +56,11 @@ angular.module('Cafepay.Controllers')
 			}
 		}
 
-		$http.post("/customer/generate-qr-code",purchasedata,function(response){
+		$http.post("/customer/generate-qr-code",purchasedata).success(function(response){
 				//console.log(response)
+				console.log(response)
+				$scope.$emit('balance',{data : response.balance})
 
-				$scope.dummy = response.amount;
 		})
 
 	}

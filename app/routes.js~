@@ -1,0 +1,152 @@
+var crypto = require('crypto');
+var toString = require('json-string');
+var shortid = require('shortid');
+var jwt = require('jsonwebtoken');
+var cookieParser = require('cookie-parser')
+
+module.exports = function(app, passport) {
+
+	app.use(cookieParser());
+
+	app.get('/', function(req, res) {
+		res.sendFile('/index.html'); 
+	});
+
+	
+	app.get('/login', function(req, res) {
+		res.send( { message: req.flash('loginMessage') });
+	});
+
+	
+
+	app.post('/login', function(req, res, next) {
+  	passport.authenticate('local-login', function(err, user, info) {
+
+	    if (err) { return next(err); }
+	    if (!user) { return res.redirect('/login'); }
+
+	    req.logIn(user, function(err) {
+	      
+		      if (err) { return next(err); }
+		      
+		      var userdata = {
+		      	username: req.user.local.username,
+		      	password: req.user.local.password
+		      }
+
+		      var token = jwt.sign(userdata, app.get('superSecret'), {
+							expiresIn: 60 * 60
+						});
+		    res.send("Done!");
+			res.cookie('jwt', token);
+			res.redirect('/profile')
+
+	    });
+
+	  })(req, res, next);
+
+	});
+
+
+	app.get('/signup', function(req, res) {
+		res.render('signup.ejs', { message: req.flash('signupMessage') });
+	});
+
+	
+	app.post('/signup', passport.authenticate('local-signup', {
+		successRedirect : '/profile', 
+		failureRedirect : '/signup', 
+		failureFlash : true
+	}));
+
+
+	app.use(function(req, res, next){
+		var token = req.body.token || req.query.token || req.headers['x-access-token'];
+		if(token) {
+			jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+				if(err)
+					return res.json({success: false, message: 'Failed to authenticate token.'});
+				else{
+					req.decoded = decoded;
+					next();
+					}
+			});
+
+		} 
+		else {
+			return res.status(403). send({
+				success: false,
+				message: 'Forbidden.'
+			});
+		}
+
+	});
+
+	app.get('/profile', isLoggedIn, function(req, res) {
+		res.render('profile.ejs', {
+			user : req.user // get the user out of session and pass to template
+		});
+	});
+
+	
+	app.get('/logout', function(req, res) {
+		req.logout();
+		res.redirect('/');
+	});
+
+
+	app.post('/generate-qr-code', function(req, res){
+	
+		var token = req.headers['x-access-token'];
+
+		if(token){
+			
+			var decoded = jwt.decode(token, app.get('superSecret'));
+			shortid = shortid.generate();
+			console.log(decoded.username);
+			var qrdata = {
+				item: req.body.item,
+				amount: req.body.amount,
+				id: shortid,
+				owner: decoded.username
+			}
+
+			var key = '#1337$72896435!incredibleIndia&IamSiddharthBro%'
+			var text = toString(qrdata);
+			var hmac = crypto.createHmac('sha256', key).update(text).digest('hex');	
+			res.json(qrdata);
+			console.log(hmac);
+		}
+
+		/*var imgBuf = qrImage.imageSync(hmac, {type: 'png'});
+
+		var jimp = require('jimp');
+
+		jimp.read(imgBuf, function(err, image){
+
+			image.resize(200, 200, function(err, image){
+
+				jimp.read("./ticket.png", function(err, ticket_image){
+					ticket_image.composite(image, 335, 40, function(err, ticket_image){
+						ticket_image.write("./gen-ticket.png", function(err){
+							console.log("Composed successfully.");
+						});
+					});
+				});
+			});
+			
+		});*/
+
+		//res.json({success: true, message: 'Your QR code is successfully generated.'});
+
+});
+
+
+function isLoggedIn(req, res, next) {
+
+	
+	if (req.isAuthenticated())
+		return next();
+	res.redirect('/');
+}
+};

@@ -6,7 +6,7 @@ var complaintSchema = mongoose.Schema({
 
         subject  : String,
         complaint : String,
-        owner:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+        owner:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
 });
 

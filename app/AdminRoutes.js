@@ -15,6 +15,8 @@ var QR = require('./models/qrcode');
 var Withdrawal = require('./models/withdrawal');
 var Feedback = require('./models/feedback');
 var Complaint = require('./models/complaint');
+var Transaction = require('./models/transaction');
+var Transactionwr = require('./models/transactionwr');
 //var Recharge = require('./models/recharge');
 var Temptoken = require('./models/temptoken');
 var config = require('../config/database');
@@ -53,8 +55,69 @@ module.exports = function(app, admin){
 	app.use(cookieParser());
 
 admin.get('/profile', function(req, res) {
-			res.json({success : true});
+			res.json({success : true, username : req.decoded.username});
 	});
+
+admin.get('/getlogs',function(req,res){
+
+
+
+	Transaction.find({})
+			   
+			   .populate('item' , 'name price')
+			   .populate('customer', 'username')
+			   .populate('vendor' , 'username')
+			   .exec(function(err,logs){
+
+
+			   		if(logs)
+			   			res.json({success : true , data : logs});
+			   })
+
+
+
+
+
+})
+
+admin.get('/getwrlogs',function(req,res){
+
+
+
+	Transactionwr.find({})
+			   
+			   .exec(function(err,logs){
+
+
+			   		if(logs)
+			   			res.json({success : true , data : logs});
+			   })
+
+
+
+
+
+})
+
+
+admin.get('/getcomplaint',function(req,res){
+
+
+
+	Complaint.find({})
+			   .populate('owner', ' username')
+			   .exec(function(err,feeds){
+
+
+			   		if(feeds)
+			   			res.json({success : true , data : feeds});
+			   })
+
+
+
+
+
+})
 
 
 	
