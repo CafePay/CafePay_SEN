@@ -1,31 +1,44 @@
+
+
+<div class="container" style="padding-bottom: 20px; ">
+        <h2>File Your Complaint</h2>
+</div>
+
 <div class="bootstrap-iso">
  <div class="container-fluid">
   <div class="row">
    <div class="col-md-6 col-sm-6 col-xs-12">
 
 
-   <div class="alert alert-danger" ng-if="err">Couldn't record the feedback.</div>
+<div class="alert alert-danger" ng-if="err">Couldn't record the feedback.</div>
    <div class="alert alert-success" ng-if="recorded">Feedback recorded successfully.</div>
+   <div class="alert alert-danger" ng-if="invalid">Can't leave empty.</div>
 
 
 
 
     <form>
      <div class="form-group ">
-      <label class="control-label " for="subject">
+      <label class="control-label " for="subject" style="color: #5f6468; font-weight: 150";>
        Subject
+       <span class="asteriskField">
+        *
+       </span>
       </label>
       <input class="form-control" id="subject" name="subject" type="text" ng-model="user.subject"/>
      </div>
      <div class="form-group ">
-      <label class="control-label " for="message">
-       Feedback
+      <label class="control-label " for="message" style="color: #5f6468; font-weight: 150">
+       Complaint
+       <span class="asteriskField">
+        *
+       </span>
       </label>
-      <textarea class="form-control" cols="40" id="message" name="message" placeholder="Give your precious feedback..." rows="10" ng-model="user.feedback"></textarea>
+      <textarea class="form-control" cols="40" id="message" name="message" placeholder="" rows="10" ng-model="user.complaint"></textarea>
      </div>
-     <div class="form-group">
+     <div class="form-group" style="padding-top: 7px;">
       <div>
-       <button class="btn btn-primary " name="submit" type="submit" ng-click="send(user)">
+       <button class="btn btn-primary " name="submit" style="margin-right: 10px" type="submit" ng-click="send(user)">
         Submit
        </button>
         <button class="btn btn-warning" name="submit" ng-click="clear()">

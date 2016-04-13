@@ -1,23 +1,35 @@
-<div class="container">
-	
 
-	
-	<h1>My QR codes</h1>
-	<h2>Search item</h2>
-	<input type="text" ng-model="search">
-	
-	<h1 ng-if="loading">Loading...</h1>
 
-		<table class="table">
-			<tr ng-repeat="code in codes | filter : { $ : search} | limitTo:5" ng-if="read">
-				<td ><qrcode info="{{code}}" version="5" error-correction-level="L" size="200" data="{{code.hmac}}" download></qrcode></td>
-				
-			
-			</tr>
-		</table>
 
-			
-			
-	
-</div>
+
+
+      <div class="container" style="padding-bottom: 36px;">
+        <h2>My QR Codes</h2>
+      </div>
+
+
+      <div class="container">
+        <h4>Search QR Code</h4>
+        <input type="text" ng-model="search">
+                  
+        <table class="table" style="width: auto;">
+          <thead>
+            <tr>
+              <th>Items</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+             
+             <tr ng-repeat="code in codes | filter : { $ : search}" ng-if="read" style="display: inline;">
+				<td><qrcode info="{{code}}" version="5" error-correction-level="L" size="200" data="{{code.hmac}}" download></qrcode></td>
+            </tr>
+            
+          </tbody>
+        </table>
+        
+            
+      </div>
+
+
 	

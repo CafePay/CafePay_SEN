@@ -342,5 +342,23 @@ vendor.get('/getwrlogs',function(req,res){
 
 
 })
+
+vendor.get("/getamount",function(req,res){
+
+		var token = req.cookies.jwt;
+		var abc = jwt.decode(token, app.get('superSecret'));
+		decoded = abc;
+		console.log(decoded)
+		User.findOne({_id : decoded._id},function(err,user){
+
+			if(err && !user)
+				console.log(err);
+			else {
+				res.json({balance : user.balance});
+				console.log(user.balance);
+			}
+		})
+
+})
 	
 }

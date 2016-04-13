@@ -10,23 +10,24 @@
 
 	<!-- show any messages that come back with authentication -->
 	
-	<div class="alert alert-danger" ng-if="emailtaken">Email already taken</div>
+	<div class="alert alert-danger" ng-if="emailtaken">Username already taken</div>
 	<div class="alert alert-danger" ng-if="usernametaken">Username already taken</div>
+	<div class="alert alert-danger" ng-if="valid">Enter valid ID</div>
 	<div class="alert alert-success" ng-if="registered">Successfully signed up. Check your email for password.</div>
 	<!-- LOGIN FORM -->
 	<form>
 		<div class="form-group">
-			<label style="color: #fae596">Username</label>
+			<label style="color: #fae596">Enter DAIICT ID</label>
 			<input type="text" class="form-control" name="username" ng-model="user.username">
 		</div>
-		<div class="form-group">
+		<!--<div class="form-group">
 			<label style="color: #fae596">Password</label>
 			<input type="password" class="form-control" name="password" ng-model="user.password">
-		</div>
-		<div class="form-group">
+		</div>-->
+		<!--<div class="form-group">
 			<label style="color: #fae596">Email</label>
 			<input type="text" class="form-control" name="email" ng-model="user.email">
-		</div>
+		</div>-->
 		
 
 		<button type="submit" class="btn md ghost" ng-click="send(user)">Signup</button>

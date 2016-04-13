@@ -1,8 +1,12 @@
-
+<div class="container" style="padding-bottom: 36px">
+        <h2>Used QR Codes</h2>
+</div>
       
 
 
       <div class="container">
+      <h4>Search QR Code</h4>
+      <input type="text" ng-model="search">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -10,16 +14,16 @@
               <th>ID</th>
               <th>Item</th>
               <th>Price</th>
-              <th>vendor</th>
-              <th>generatetime</th>
-              <th>scantime</th>
+              <th>Vendor</th>
+              <th>Generated on</th>
+              <th>Scanned on</th>
 
 
             </tr>
           </thead>
           <tbody>
 
-            <tr ng-repeat="log in logs | filter : search">
+            <tr ng-repeat="log in logs | filter : { $ : search}">
               <td>{{$index+1}}</td>
               <td>{{log.code.shortid}}</td>
               <td>{{log.item.name}}</td>

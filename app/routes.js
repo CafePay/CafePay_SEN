@@ -243,20 +243,20 @@ app.post('/signup',function(req,res){
 		}
 		else{
 			var password = generator.generate(generatorOptions);
-			console.log(User.generateHash(req.body.password))
+			//console.log(User.generateHash(req.body.password))
 			var user = new User({username:req.body.username,
 								 email:req.body.email,
-								 password: /*req.body.password*/User.generateHash(req.body.password),
+								 password: /*req.body.password*/User.generateHash(password),
 								 account: req.body.account,
-								 balance: 5000});
+								 balance: 0});
 			user.save(function (err){
 				if(err)
 					console.log(err)
 			});
 			mailList ={};
 			mailList.to = req.body.email;
-			mailList.subject = "halo bhaii.. lejo";
-			mailList.text = 'tamaro password is  "'+ password+'"';
+			mailList.subject = "Do not reply.";
+			mailList.text = 'Your Cafepay account password is  :'+ password;
 			smtp.sendMail(mailList, function(error, response){
 				if(error){
 					console.log(error);
@@ -544,8 +544,8 @@ customer.post('/requestrecharge',function(req,res){
 			console.log(req.body)
 			var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 			decoded = abc;
-			console.log(decoded);
-			console.log(User.generateHash(req.body.oldpassword));
+			//console.log(decoded);
+			//console.log(User.generateHash(req.body.oldpassword));
 			User.findOne({_id : decoded._id /*password : /*req.body.oldpassword User.generateHash(req.body.oldpassword)*/},function(err,user){
 				if(err || !user){
 					console.log(err)
@@ -1000,7 +1000,7 @@ customer.get("/getamount",function(req,res){
 			if(err && !user)
 				console.log(err);
 			else {
-				res.json({amount : user.balance});
+				res.json({balance : user.balance});
 				console.log(user.balance);
 			}
 		})

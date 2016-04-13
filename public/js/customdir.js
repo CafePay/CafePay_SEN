@@ -26,7 +26,29 @@ angular.module('custom.dir',[])
 									$.post('/vendor/scanqrcode/hmac',send,function(response){
 										console.log(response)
 										//count = true;
+									
 
+
+										if(response.message == "done"){
+;
+
+											$('#scanned1').css("display", "block");
+											$('#notvalid1').css("display", "none");
+											//$scope.done = true;
+											//$scope.invalid  = false;
+											//$rootScope.$broadcast('balance', {data :response.balance})
+											//console.log("hare")
+											//$scope.$emit('balance',{data : response.balance})
+											//console.log(response.balance)
+											
+
+										}
+										else if (response.message == "invalid"){
+											$('#scanned1').css("display", "none");
+											$('#notvalid1').css("display", "block");
+											//$scope.done = false;
+											//$scope.invalid  = true;
+										}
 										/*setTimeout(function(){
 										console.log("oho")
 									},5000)*/

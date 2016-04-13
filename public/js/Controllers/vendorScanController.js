@@ -6,6 +6,8 @@ angular.module('Cafepay.Controllers')
 		$scope.send = function(user){
 			if($scope.user.id.length > 0){
 			$http.post('/vendor/scanqrcode/shortid',user).success(function(response){
+				$scope.done = false;
+				$scope.invalid  = false;
 
 					console.log("nare")
 				if(response.message == "done"){
@@ -19,6 +21,7 @@ angular.module('Cafepay.Controllers')
 
 				}
 				else if (response.message == "invalid"){
+					console.log("hm")
 					$scope.done = false;
 					$scope.invalid  = true;
 				}

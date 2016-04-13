@@ -2,14 +2,16 @@ angular.module('Cafepay.Controllers')
 
 .controller('customerGenerateController',function($scope,$http){
 	
-	/*$http.get('/customer/getamount').success(function(response){
+	$http.get('/customer/getamount').success(function(response){
 
 					//console.log(response)
-					$scope.dummy = response.amount;
+					$scope.dummy = response.balance;
 					console.log(response)
 					
-	});*/
-	$dummy = $scope.$parent.balance;
+	});
+	$scope.done = false;
+	//$dummy = $scope.$parent.balance;
+	console.log($scope.dummy)
 	$scope.total = 0;
 	$scope.counter = [];
 
@@ -26,6 +28,7 @@ angular.module('Cafepay.Controllers')
 	//console.log($scope.items);
 	
 	$scope.add = function(index){
+		$scope.done = false;
 		$scope.counter[index]++;
 		$scope.total = $scope.total + $scope.items[index].price;
 
@@ -34,6 +37,7 @@ angular.module('Cafepay.Controllers')
 
 	$scope.delete = function(index){
 
+			$scope.done = false;
 
 			$scope.counter[index]--;
 			$scope.total = $scope.total - $scope.items[index].price;
@@ -59,8 +63,16 @@ angular.module('Cafepay.Controllers')
 		$http.post("/customer/generate-qr-code",purchasedata).success(function(response){
 				//console.log(response)
 				console.log(response)
+				if(response.success){
+					$scope.done = true;
+				
 				$scope.$emit('balance',{data : response.balance})
-
+				$scope.dummy = response.balance;
+				$scope.total = 0;
+				console.log($scope.dummy)
+				for(var i=0; i < $scope.items.length ;i++)
+					$scope.counter[i]=0;
+			}
 		})
 
 	}

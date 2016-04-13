@@ -27,19 +27,22 @@
   </nav>
     
   <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-    <form role="search">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search">
-      </div>
-    </form>
-    <ul class="nav menu">
+        <ul class="nav menu">
       <li><a ui-sref=".scan"><svg class="glyph stroked eye"><use xlink:href="#stroked-eye"/></svg>
 </svg>Scan QR Codes</a></li>
       
       <li><a ui-sref=".withdrawal"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg>Request Withdrawal</a></li>
       
-      <li><a ui-sref=".history"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"/></svg>Transaction History</a></li>
-      <li><a ui-sref=".logswr"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"/></svg>Transaction logs wr</a></li>
+      
+
+      <li class="parent ">
+        <a>
+          <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>Transaction History 
+        </a>
+        <ul class="children collapse" id="sub-item-1">
+          <li><a ui-sref=".history"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg>Of QR Codes</a></li>
+      <li><a ui-sref=".logswr"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg>Of Withdrawal</a></li>        </ul>
+      </li>
       <li><a ui-sref=".complaint"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg>File Complaint</a></li>
       
       

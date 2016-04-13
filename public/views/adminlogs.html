@@ -1,8 +1,11 @@
-
+<div class="container" style="padding-bottom: 36px">
+        <h2>QR Codes Based</h2>
+</div>
       
 
 
       <div class="container">
+      <input type="text" ng-model="search">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -10,17 +13,17 @@
               <th>ID</th>
               <th>Item</th>
               <th>Price</th>
-              <th>vendor</th>
-              <th>customer</th>
-              <th>generatetime</th>
-              <th>scantime</th>
+              <th>Vendor</th>
+              <th>Customer</th>
+              <th>Generated On</th>
+              <th>Scanned On</th>
 
 
             </tr>
           </thead>
           <tbody>
 
-            <tr ng-repeat="log in logs | filter : search">
+            <tr ng-repeat="log in logs | filter : { $ : search}">
               <td>{{$index+1}}</td>
               <td>{{log.code.shortid}}</td>
               <td>{{log.item.name}}</td>

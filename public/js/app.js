@@ -111,7 +111,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         })
         .state('customer.complaint', {
             url: '/complaint',
-            templateUrl: 'views/complaint.html',
+            templateUrl: 'views/customercomplaint.html',
             controller: 'customerComplaintController',
             data: {
                 css: 'css/complaint.css'

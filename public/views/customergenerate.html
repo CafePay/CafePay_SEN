@@ -1,40 +1,13 @@
 
-      <div class="container">
-        <h3>Select food Item</h3>
-        <!--<div class="btn-group">
-          <button onclick="myFunction()" type="button" class="btn btn-primary">a</button>
-          <button type="button" class="btn btn-primary">b</button>
-          <button type="button" class="btn btn-primary">c</button>
-          <button type="button" class="btn btn-primary">d</button>
-          <button type="button" class="btn btn-primary">e</button>
-          <button type="button" class="btn btn-primary">f</button>
-          <button type="button" class="btn btn-primary">g</button>
-          <button type="button" class="btn btn-primary">h</button>
-          <button type="button" class="btn btn-primary">i</button>
-          <button type="button" class="btn btn-primary">j</button>
-          <button type="button" class="btn btn-primary">k</button>
-          <button type="button" class="btn btn-primary">l</button>
-          <button type="button" class="btn btn-primary">m</button>
-          <button type="button" class="btn btn-primary">n</button>
-          <button type="button" class="btn btn-primary">o</button>
-          <button type="button" class="btn btn-primary">p</button>
-          <button type="button" class="btn btn-primary">q</button>
-          <button type="button" class="btn btn-primary">r</button>
-          <button type="button" class="btn btn-primary">s</button>
-          <button type="button" class="btn btn-primary">t</button>
-          <button type="button" class="btn btn-primary">u</button>
-          <button type="button" class="btn btn-primary">v</button>
-          <button type="button" class="btn btn-primary">w</button>
-          <button type="button" class="btn btn-primary">x</button>
-          <button type="button" class="btn btn-primary">y</button>
-          <button type="button" class="btn btn-primary">z</button>
-        </div>-->
+      <div class="container" style="padding-bottom: 36px;">
+        <h2>Select Food Item</h2>
       </div>
 
 
       <div class="container">
-        <h4>Food Item</h4>
-        <input type="text" ng-model="search">            
+        <h4>Search Item</h4>
+        <input type="text" ng-model="search">
+        <button class="btn btn-primary" ng-click="purchase()" style="float: right;">Purchase</button>            
         <table class="table table-hover">
           <thead>
             <tr>
@@ -56,10 +29,6 @@
           </tbody>
         </table>
         
-            <button class="btn btn-primary" ng-click="purchase()"> Purchase</button>
+            
       </div>
 
-      <script type="text/javascript-lazy">
-  console.log("It works!");
-</script>
-<script src="../js/hi.js"></script>

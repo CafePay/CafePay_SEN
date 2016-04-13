@@ -1,8 +1,12 @@
-
+<div class="container" style="padding-bottom: 36px">
+        <h2>Recharges/Withdrawals</h2>
+</div>
       
 
 
       <div class="container">
+      <h4>Search Vendor/Customer</h4>
+      <input type="text" ng-model="search">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -11,7 +15,7 @@
               
               <th>User</th>
               <th>Amount</th>
-              <th>Transacrion time</th>
+              <th>Transaction Time</th>
               
 
 
@@ -19,7 +23,7 @@
           </thead>
           <tbody>
 
-            <tr ng-repeat="log in logs | filter : search">
+            <tr ng-repeat="log in logs | filter : { $ : search}">
               <td>{{$index+1}}</td>
              
               <td>{{log.owner}}</td>

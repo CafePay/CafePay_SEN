@@ -1,15 +1,25 @@
 
+<div class="container" style="padding-bottom: 35px; ">
+        <h2>Scan QR Code</h2>
+</div>
 
+<div class="row">
+<div class="col-md-offset-2" style="padding-bottom: 18px;">
+<h4>Scanner :</h4>
 <scanner ng-if"show"></scanner>
-
+</div>
+</div>
 
 <!--<span id="read" class="center"></span>
 					 <span id="read_error" class="center"></span>
 					 <span id="vid_error" class="center"></span>-->
 
  
+<div id="scanned1" class="alert alert-success" style="display : none;">Done (camera)</div>
+<div id ="notvalid1" class="alert alert-danger" style="display : none;">Invalid (camera)</div>
 
-
+<div id="scanned" class="alert alert-success" ng-if="done">Done (ID)</div>
+<div id ="notvalid" class="alert alert-danger" ng-if="invalid">Invalid (ID)</div>
 
 
 
@@ -19,7 +29,7 @@
    <div class="col-md-6 col-sm-6 col-xs-12">
     <form method="post">
      <div class="form-group ">
-      <label class="control-label requiredField" for="name">
+      <label class="control-label requiredField" for="name" style="color: #5f6468; font-weight: 150;">
        Token ID
        <span class="asteriskField">
         *
@@ -43,8 +53,7 @@
  </div>
 </div>
 
-	<div id="scanned" class="alert alert-danger" ng-if="done">Email already taken</div>
-	<div id ="notvalid" class="alert alert-danger" ng-if="invalid">Username already taken</div>
+	
 
 
 	<script type="text/javascript" src="js/src/grid.js"></script>

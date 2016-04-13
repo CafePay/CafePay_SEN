@@ -35,31 +35,28 @@
   </nav>
     
   <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-    <form role="search">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search">
-      </div>
-    </form>
+    
     <ul class="nav menu">
       <li><a ui-sref=".myqr"><svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>My QR Codes</a></li>
       <li><a ui-sref=".generate"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg>Generate QR Code</a></li>
       <li><a ui-sref=".recharge"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg>Request Recharge</a></li>
-      <li><a ui-sref=".history"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"/></svg>Transaction History</a></li>
-      <li><a ui-sref=".logswr"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"/></svg>Transaction logs wr</a></li>
       <li><a ui-sref=".complaint"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg>File Complaint</a></li>
       <li><a ui-sref=".feedback"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg></use></svg>Feedback</a></li>
+      <li class="parent ">
+        <a>
+          <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>Transaction History 
+        </a>
+        <ul class="children collapse" id="sub-item-1">
+          <li><a ui-sref=".history"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg>Of QR Codes</a></li>
+      <li><a ui-sref=".logswr"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg>Of Recharge</a></li>        </ul>
+      </li>
+
       
 
   </div><!--/.sidebar-->
     
   <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">     
     
-    
-    <!--<div class="row">
-      <div class="col-lg-12">
-        <h1 class="page-header">Dashboard</h1>
-      </div>
-    </div>-->
 
         <div id="main2">
 
@@ -71,13 +68,6 @@
     
   </div>  
 
-  <!--<script src="js/jquery-1.11.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/chart.min.js"></script>
-  <script src="js/chart-data.js"></script>
-  <script src="js/easypiechart.js"></script>
-  <script src="js/easypiechart-data.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>-->
   <script>
  
     !function ($) {

@@ -1,8 +1,16 @@
+
+
+
+
+
 <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
 
 
 <!-- Inline CSS based on choices in "Settings" tab -->
 
+<div class="container" style="padding-bottom: 40px; ">
+        <h2>Request Your Withdrawal</h2>
+</div>
 
 <div class="bootstrap-iso">
  <div class="container-fluid">
@@ -10,7 +18,8 @@
    <div class="col-md-6 col-sm-6 col-xs-12">
 
 
-  <div class="alert alert-danger" ng-if="err">Couldn't request your withdrawal</div>
+ <div class="alert alert-danger" ng-if="err">Couldn't request your withdrawal</div>
+  <div class="alert alert-danger" ng-if="valid">Enter valid amount.</div>
    <div class="alert alert-success" ng-if="done">Withdrawal Request has been recorded . An OTP has been sent to your email.</div>
 
 
@@ -18,18 +27,18 @@
 
     <form>
      <div class="form-group ">
-      <label class="control-label requiredField" for="number">
-       ENTER THE AMOUNT:
-       <span class="asteriskField">
+      <label class="control-label requiredField" for="number" style="color: #5f6468; font-weight: 150;">
+       ENTER THE AMOUNT :
+       <span style="color:red;" class="asteriskField">
         *
        </span>
       </label>
-      <input class="form-control" id="number" name="number" type="text" ng-model="user.withdrawal"/>
-    
+      <input class="form-control" id="number" name="number" type="text" ng-model="user.recharge"/>
+      
      </div>
-     <div class="form-group">
+     <div class="form-group " style="padding-top: 7px;">
       <div>
-       <button class="btn btn-primary " name="submit" type="submit" ng-click="send(user)">
+       <button class="btn btn-primary " style="margin-right: 10px"name="submit" type="submit" ng-click="send(user)">
           Send
        </button>
         <button class="btn btn-warning" name="submit" ng-click="clear()">
@@ -42,5 +51,3 @@
   </div>
  </div>
 </div>
-
-

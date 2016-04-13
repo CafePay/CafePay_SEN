@@ -82,7 +82,7 @@ committee.get('/getrecharge',function(req,res){
 
 
 	Recharge.find({})
-			   .populate('owner', 'username balance')
+			   .populate('owner', 'username')
 			   .select('owner amount')
 			   .exec(function(err,rechas){
 
@@ -102,7 +102,7 @@ committee.get('/getwithdrawal',function(req,res){
 
 
 	Withdrawal.find({})
-			   .populate('owner', 'username balance')
+			   .populate('owner', 'username')
 			   .select('owner amount')
 			   .exec(function(err,withs){
 
