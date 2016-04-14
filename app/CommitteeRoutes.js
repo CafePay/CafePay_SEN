@@ -119,30 +119,18 @@ module.exports = function(app, committee){
 					res.json({success: false, message: "notfound"})
 				}
 				if(doc){
-
 					doc.owner.balance = doc.owner.balance + doc.amount;
 					doc.owner.save();
-					var tran = new Transactionwr({ owner: doc.owner.username,
+					var tran = new Transactionwr({owner: doc.owner.username,
 						amount: doc.amount,
 						ctime: new Date().toString()
 					})
 					tran.save()
-
 					var balance = doc.owner.balance;
 					doc.remove();
-
-
 					res.json({success: true, balance: doc.owner.balance})
 				}
 			})
-
-
-
-
-
 	})
-
-
-
 
 }
