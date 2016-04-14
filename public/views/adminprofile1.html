@@ -1,14 +1,4 @@
-
-
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<script src="js/respond.min.js"></script>
-<![endif]-->
-
-
-
-
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
@@ -28,44 +18,32 @@
           </li>
         </ul>
       </div>
-              
     </div><!-- /.container-fluid -->
-  </nav>
+</nav>
     
   <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
     <ul class="nav menu">
-
       <li class="parent ">
         <a>
           <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>Transaction Logs 
         </a>
         <ul class="children collapse" id="sub-item-1">
           <li><a ui-sref=".logs"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg>Of QR Codes</a></li>
-      <li><a ui-sref=".logswr"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg>Of Recha/Wdrawals</a></li>
-      </ul>
+          <li><a ui-sref=".logswr"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg>Of Recha/Wdrawals</a></li>
+        </ul>
       </li>
-       <li><a ui-sref=".complaints"><svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages"/></svg>Received Complaints</a></li>
-      <!--<li><a href=""><svg class="glyph stroked hourglass"><use xlink:href="#stroked-hourglass"/></svg></svg>Proceed Withdrawal</a></li>-->
-      
-            
-
-  </div>
+      <li><a ui-sref=".complaints"><svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages"/></svg>Received Complaints</a></li></use></svg></a>
+      </li>
+      </ul>
+</div>
     
-  <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">     
-    
-    
- 
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">     
     <div id="main2">
-
-        
       <div ui-view></div>
-
     </div>
-    
-  </div>  
+</div>  
 
-  <script>
-
+<script>
     !function ($) {
         $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
             $(this).find('em:first').toggleClass("glyphicon-minus");      
@@ -79,7 +57,7 @@
     $(window).on('resize', function () {
       if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
     })
-  </script> 
+</script> 
 
 
 

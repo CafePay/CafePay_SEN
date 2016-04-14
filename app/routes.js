@@ -1,49 +1,45 @@
-//var router = require("./api");
-var express = require("express");
-var crypto = require('crypto');
-var toString = require('json-string');
-var shortid = require('shortid');
-var jwt = require('jsonwebtoken');
-var q = require('q');
-//var time = require('time')(Date);
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var rn = require("random-number");
+var express 		= require("express");
+var crypto 			= require('crypto');
+var toString 		= require('json-string');
+var shortid 		= require('shortid');
+var jwt 			= require('jsonwebtoken');
+var q 				= require('q');
+var cookieParser 	= require('cookie-parser');
+var bodyParser 		= require('body-parser');
+var rn 				= require("random-number");
+var nodemailer 		= require("nodemailer");
+var generator 		= require("generate-password");
 
-var User = require('./models/user');
-var Item = require('./models/item');
-var QR = require('./models/qrcode');
-var Feedback = require('./models/feedback');
-var Complaint = require('./models/complaint');
-var Transaction = require('./models/transaction');
-var Transactionwr = require('./models/transactionwr');
-var Recharge = require('./models/recharge');
-var Temptoken = require('./models/temptoken');
-var config = require('../config/database');
+var User 			= require('./models/user');
+var Item 			= require('./models/item');
+var QR 				= require('./models/qrcode');
+var Feedback 		= require('./models/feedback');
+var Complaint 		= require('./models/complaint');
+var Transaction 	= require('./models/transaction');
+var Transactionwr 	= require('./models/transactionwr');
+var Recharge 		= require('./models/recharge');
+var Temptoken 		= require('./models/temptoken');
+var config 			= require('../config/database');
 
-/*var dummy = Item({name:"tea",
-				  price: 10,
-				  available_at: [1,3,5,7]})
-dummy.save()*/
-var nodemailer = require("nodemailer");
-var generator = require("generate-password");
+
 var generatorOptions={
+		length: 8,
+		number: true,
+		symbols: true,
+		uppercase: true
+}
 
-	length:8,
-	number:true,
-	symbols:true,
-	uppercase: true
-}
 var shortidOptions={
-	length:10,
-	number:true,
-	symbols:false,
-	uppercase: false
+		length: 10,
+		number: true,
+		symbols: false,
+		uppercase: false
 }
+
 var OTPoptions={
-	min : 100000,
-	max : 999999,
-	integer : true
+		min: 100000,
+		max: 999999,
+		integer: true
 }
 var smtp = nodemailer.createTransport("	SMTP", {
 	service: "Gmail",
@@ -114,7 +110,7 @@ function mid(req, res, next) {
  	console.log(rtoken)
   // decode token
 
-  		Temptoken.findOne({token : rtoken},function(err,token){
+  		Temptoken.findOne({token: rtoken},function(err,token){
 
 
 			  		if (rtoken && token) {
@@ -123,7 +119,7 @@ function mid(req, res, next) {
 				    jwt.verify(rtoken, app.get('superSecret'), function(err, decoded) {      
 				      if (err) {
 				      	console.log(err.message)
-				        return res.json({ success: false, err : "notoken"});    
+				        return res.json({ success: false, err: "notoken"});    
 				      } else {
 				        // if everything is good, save to request for use in other routes
 				        console.log(decoded)
@@ -196,10 +192,10 @@ function mid4(req,res,next){
 			else if(!response.err){
 										
 
-				var udata = {_id : user._id,
-							 username : user.username,
-							 email : user.email,
-							 account : user.account};
+				var udata = {_id: user._id,
+							 username: user.username,
+							 email: user.email,
+							 account: user.account};
 				
 				var token = jwt.sign(udata, app.get('superSecret'), {
 				expiresIn: 3600 
@@ -207,14 +203,14 @@ function mid4(req,res,next){
 
 
 				var tmp = Temptoken({
-					token : token,
-					valid : true
+					token: token,
+					valid: true
 				});
 				tmp.save();
 				response.success= true
 					response.user = udata;
 					//response.token= token
-					res.cookie("jwt",token,{maxAge : 3600*1000,httpOnly: true});
+					res.cookie("jwt",token,{maxAge: 3600*1000,httpOnly: true});
 			}
 			//console.log(response)
 		res.json(response)
@@ -256,7 +252,7 @@ app.post('/signup',function(req,res){
 			mailList ={};
 			mailList.to = req.body.email;
 			mailList.subject = "Do not reply";
-			mailList.text = 'Your Cafepay account password is : '+ password;
+			mailList.text = 'Your Cafepay account password is: '+ password;
 			smtp.sendMail(mailList, function(error, response){
 				if(error){
 					console.log(error);
@@ -350,7 +346,7 @@ app.post('/forgot',function(req,res){
 					mailList ={};
 					mailList.to = user.email;
 					mailList.subject = "halo bhaii.. lejo";
-					mailList.text = 'Your new password is : '+ password;
+					mailList.text = 'Your new password is: '+ password;
 					smtp.sendMail(mailList, function(error, response){
 						if(error){
 							console.log(error);
@@ -392,9 +388,9 @@ app.post('/forgot',function(req,res){
 
 app.post('/logout',function(req,res){
 
-	Temptoken.remove({token : req.cookies.jwt},function(err){
+	Temptoken.remove({token: req.cookies.jwt},function(err){
 			if(!err)
-				res.json({success : true})
+				res.json({success: true})
 	})
 })
 
@@ -404,24 +400,24 @@ app.post('/logout',function(req,res){
 			decoded = abc;
 			console.log(decoded);
 			console.log(req.body)
-			User.findOne({_id : decoded._id},function(err,user){
+			User.findOne({_id: decoded._id},function(err,user){
 				if(err || !user){
 					console.log(err)
 					console.log("hi")
-					res.json({success : false});
+					res.json({success: false});
 				}
 				else{
 
 					var feed = Feedback({
-						subject : req.body.subject,
-						feedback : req.body.feedback,
-						owner : decoded._id
+						subject: req.body.subject,
+						feedback: req.body.feedback,
+						owner: decoded._id
 					})
 					feed.save(function(err){
 						if(err){
 							console.log(err);
 						}else{
-							res.json({success : true});
+							res.json({success: true});
 						}
 					});
 
@@ -437,24 +433,24 @@ customer.post('/sendcomplaint',function(req,res){
 			decoded = abc;
 			console.log(decoded);
 			console.log(req.body)
-			User.findOne({_id : decoded._id},function(err,user){
+			User.findOne({_id: decoded._id},function(err,user){
 				if(err || !user){
 					console.log(err)
 					console.log("hi")
-					res.json({success : false});
+					res.json({success: false});
 				}
 				else{
 
 					var comp = Complaint({
-						subject : req.body.subject,
-						complaint : req.body.complaint,
-						owner : decoded._id
+						subject: req.body.subject,
+						complaint: req.body.complaint,
+						owner: decoded._id
 					})
 					comp.save(function(err){
 						if(err){
 							console.log(err);
 						}else{
-							res.json({success : true});
+							res.json({success: true});
 						}
 					});
 
@@ -471,11 +467,11 @@ customer.post('/requestrecharge',function(req,res){
 			decoded = abc;
 			console.log(decoded);
 			console.log(req.body)
-			User.findOne({_id : decoded._id},function(err,user){
+			User.findOne({_id: decoded._id},function(err,user){
 				if(err || !user){
 					console.log(err)
 					console.log("hi")
-					res.json({success : false});
+					res.json({success: false});
 				}
 				else{
 
@@ -483,9 +479,9 @@ customer.post('/requestrecharge',function(req,res){
 					var otp = rn(OTPoptions);
 					console.log(req.body.recharge)
 					var  recha= Recharge({
-						amount : req.body.recharge,
-						OTP : otp,
-						owner : decoded._id
+						amount: req.body.recharge,
+						OTP: otp,
+						owner: decoded._id
 					})
 
 
@@ -508,7 +504,7 @@ customer.post('/requestrecharge',function(req,res){
 
 								}
 							});
-							res.json({success : true});
+							res.json({success: true});
 						}
 					});
 
@@ -546,17 +542,17 @@ customer.post('/requestrecharge',function(req,res){
 			decoded = abc;
 			//console.log(decoded);
 			//console.log(User.generateHash(req.body.oldpassword));
-			User.findOne({_id : decoded._id /*password : /*req.body.oldpassword User.generateHash(req.body.oldpassword)*/},function(err,user){
+			User.findOne({_id: decoded._id /*password: /*req.body.oldpassword User.generateHash(req.body.oldpassword)*/},function(err,user){
 				if(err || !user){
 					console.log(err)
 					console.log("hi")
-					res.json({success : false});
+					res.json({success: false});
 				}
 				else if((req.body.newpassword != req.body.confirmpassword)
 						 ||(user.validPassword(req.body.newpassword))
 						 || (!user.validPassword(req.body.oldpassword))){
 						console.log("hi2")
-						res.json({success : false})
+						res.json({success: false})
 				}
 				else{
 
@@ -565,7 +561,7 @@ customer.post('/requestrecharge',function(req,res){
 						if(err){
 							console.log(err);
 						}else{
-							res.json({success : true});
+							res.json({success: true});
 						}
 					});
 
@@ -580,14 +576,14 @@ customer.post('/requestrecharge',function(req,res){
 
 
 
-	Transaction.find({customer : req.decoded._id})
+	Transaction.find({customer: req.decoded._id})
 			   .populate('item' , 'name price')
 			   .populate('vendor' , 'username')
 			   .exec(function(err,logs){
 
 
 			   		if(logs)
-			   			res.json({success : true , data : logs});
+			   			res.json({success: true , data: logs});
 			   })
 
 
@@ -599,20 +595,12 @@ customer.post('/requestrecharge',function(req,res){
 
 
 	customer.get('/profile', mid,mid1, function(req, res) {
-			User.findOne({username : req.decoded.username})
+			User.findOne({username: req.decoded.username})
 				.exec(function(err,doc){
-					res.json({success : true, username : req.decoded.username, balance : doc.balance});
+					res.json({success: true, username: req.decoded.username, balance: doc.balance});
 				})
 			
 	});
-
-	
-	/*app.get('/logout', function(req, res) {
-		req.logout();
-		res.redirect('/');
-	});*/
-
-
 
 	customer.post('/generate-qr-code', function(req, res){
 
@@ -645,12 +633,12 @@ customer.post('/requestrecharge',function(req,res){
 																															var mac = crypto.createHmac('sha256', key).update(text).digest('hex');
 																															//console.log(hmac)
 																													var code = new QR({
-																														shortid : sid,
-																														owner : decoded._id,
+																														shortid: sid,
+																														owner: decoded._id,
 																														item: data._id,
 																														ctime: gentime,
-																														hmac : mac,
-																														scanned : false
+																														hmac: mac,
+																														scanned: false
 
 																													});
 																													
@@ -736,29 +724,29 @@ customer.post('/requestrecharge',function(req,res){
 
 	
 		reqdata = req.body
-		//console.log(reqdata)
+	
 		arr = [];
 		qsum = 0;
 
 
-		//console.log(arr)
+		
 		for (var i=0;i<reqdata.length;i++){
-			//console.log(reqdata[i]._id)
+		
 			arr.push(reqdata[i]._id)
 			qsum = qsum + reqdata[i].quantity;
-			//console.log(qsum)
+		
 		}
-		//console.log(arr)
+		
 
-		Item.find({ _id : { $in : arr}},function(err,items){
+		Item.find({ _id: { $in: arr}},function(err,items){
 			console.log("hi")
 			if(err){
 				console.log(err)
-				res.json({success : false})
+				res.json({success: false})
 			}
 			var counter = 0;
 			var totalamount = 0;
-			//console.log(reqdata)
+		
 
 			function callback(generated){
 				counter = counter + generated;
@@ -784,7 +772,7 @@ customer.post('/requestrecharge',function(req,res){
 				var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 				decoded = abc;
 
-				User.findOne({_id : decoded._id},function(err,user){
+				User.findOne({_id: decoded._id},function(err,user){
 
 
 
@@ -793,51 +781,6 @@ customer.post('/requestrecharge',function(req,res){
 
 								console.log("err")
 							}else{
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											/*reqdata.filter(function(data){
-
-											for(var i=0;i<items.length;i++){
-
-												if(items[i]._id == data._id){
-
-													for(var j=0;j< data.quantity;j++){
-														//create(item);
-														token = req.cookies.jwt;
-														/*generated = create(token,items[i],callback);//
-														/*counter = counter + generated;
-														console.log("generated "+ generated)
-														console.log("countr " + counter)
-														if (generated == 0){
-															//err
-															console.log("couldn't generated")
-														}//
-													}
-
-													
-												}
-											}
-
-
-
-
-										})*/
-									//var idata = [];
 
 													function promise(){
 														var deferred  = q.defer();
@@ -850,17 +793,10 @@ customer.post('/requestrecharge',function(req,res){
 																	if(items[i]._id == data._id){
 
 																		for(var j=0;j< data.quantity;j++){
-																			//create(item);
+																		
 																			token = req.cookies.jwt;
-																			/*generated = */create(token,items[i],callback);
-																			/*counter = counter + generated;
-																			console.log("generated "+ generated)
-																			console.log("countr " + counter)
-																			if (generated == 0){
-																				//err
-																				console.log("couldn't generated")
-																			}*/
-																		}
+																		create(token,items[i],callback);
+																												}
 
 																		
 																	}
@@ -886,19 +822,12 @@ customer.post('/requestrecharge',function(req,res){
 													};
 
 													promise().then(function(){
-
-														
-															//console.log("helloo")
-															//console.log(totalamount)
-															//console.log(user.balance)
 															console.log("ohh")
 															user.balance = user.balance - totalamount;
 															console.log(totalamount)
 															user.save()
-															console.log(user.balance)
-															//console.log(user.balance)
-													
-															res.json({ success : true,balance : user.balance})
+															console.log(user.balance)												
+															res.json({ success: true,balance: user.balance})
 
 														
 
@@ -910,157 +839,45 @@ customer.post('/requestrecharge',function(req,res){
 
 								}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				})
-
-
-
-
-			//console.log(items)
 		})	
-	
-		//console.log(req.body)
-		/*var token = req.headers['x-access-token'];
-
-		if(token){
-			
-			var decoded = jwt.decode(token, app.get('superSecret'));
-			shortid = shortid.generate();
-			console.log(decoded.username);
-			var qrdata = {
-				item: req.body.item,
-				amount: req.body.amount,
-				id: shortid,
-				owner: decoded.username
-			}
-
-			var key = '#1337$72896435!incredibleIndia&IamSiddharthBro%'
-			var text = toString(qrdata);
-			var hmac = crypto.createHmac('sha256', key).update(text).digest('hex');	
-			res.json(qrdata);
-			console.log(hmac);
-		}
-*/
-		/*var imgBuf = qrImage.imageSync(hmac, {type: 'png'});
-
-		var jimp = require('jimp');
-
-		jimp.read(imgBuf, function(err, image){
-
-			image.resize(200, 200, function(err, image){
-
-				jimp.read("./ticket.png", function(err, ticket_image){
-					ticket_image.composite(image, 335, 40, function(err, ticket_image){
-						ticket_image.write("./gen-ticket.png", function(err){
-							console.log("Composed successfully.");
-						});
-					});
-				});
-			});
-			
-		});*/
-
-		//res.json({success: true, message: 'Your QR code is successfully generated.'});
-
 });
 
-/*app.get("/test",function(req,res){
-
-
-	QR.find({ _id : '5707c25000204e7e265d5cfb'})
-	  .populate('owner item')
-	  .exec(function(err,doc){
-	  	res.json(doc);
-	  })
-
-})*/
-customer.get("/getamount",function(req,res){
-
+	customer.get("/getamount", function(req,res){
 		var token = req.cookies.jwt;
 		var abc = jwt.decode(token, app.get('superSecret'));
 		decoded = abc;
 		console.log(decoded)
-		User.findOne({_id : decoded._id},function(err,user){
+		User.findOne({_id: decoded._id}, function(err,user){
 
 			if(err && !user)
 				console.log(err);
 			else {
-				res.json({balance : user.balance});
+				res.json({balance: user.balance});
 				console.log(user.balance);
 			}
 		})
+	})
 
-})
+	customer.get("/myqrcodes", function(req,res){
+		var token = req.cookies.jwt;
+		var abc = jwt.decode(token, app.get('superSecret'));
+		decoded = abc;
+		QR.find({owner: decoded._id})
+		  .populate('item', 'name')
+		  .select("shortid item hmac")
+		  .exec(function(err, codes){
+		  		res.json({success: true, data: codes})
+		  })
+	})
 
-
-customer.get("/myqrcodes", function(req,res){
-
-	var token = req.cookies.jwt;
-	var abc = jwt.decode(token, app.get('superSecret'));
-	decoded = abc;
-
-	QR.find({owner : decoded._id})
-	  .populate('item', 'name')
-	  .select("shortid item hmac")
-	  .exec(function(err,codes){
-
-	  	//console.log(codes)
-	  	res.json({success : true, data : codes})
-	  })
-})
-
-customer.get('/getwrlogs',function(req,res){
-
-
-
-	Transactionwr.find({owner : req.decoded.username})
-			   
-			   .exec(function(err,logs){
-
-
-			   		if(logs)
-			   			res.json({success : true , data : logs});
-			   })
-
-
-
-
-
-})
-function isLoggedIn(req, res, next) {
-
-	
-	if (req.isAuthenticated())
-		return next();
-	res.redirect('/');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+	customer.get('/getwrlogs', function(req,res){
+		Transactionwr.find({owner: req.decoded.username})
+			.exec(function(err, logs){
+				if(logs){
+				   	res.json({success: true, data: logs});
+				}
+			})
+	})
 
 };
