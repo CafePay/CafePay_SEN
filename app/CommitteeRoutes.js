@@ -48,7 +48,7 @@ module.exports = function(app, committee){
 	app.use(cookieParser());
 
 	committee.get('/profile', function(req, res) {
-		res.json({success: true , username: req.decoded.username});
+		res.json({success: true, username: req.decoded.username});
 	});
 
 	committee.get('/getfeedback', function(req,res){
@@ -56,7 +56,7 @@ module.exports = function(app, committee){
 			.select('subject feedback')
 			.exec(function(err,feeds){
 				if(feeds){
-					res.json({success: true , data: feeds});
+					res.json({success: true, data: feeds});
 				}
 			})
 	})
@@ -67,7 +67,7 @@ module.exports = function(app, committee){
 			.select('owner amount')
 			.exec(function(err, rechas){
 				if(rechas){
-					res.json({success: true , data: rechas});
+					res.json({success: true, data: rechas});
 				}
 			})
 	})
@@ -78,7 +78,7 @@ module.exports = function(app, committee){
 			.select('owner amount')
 			.exec(function(err, withs){
 				if(withs){
-					res.json({success: true , data: withs});
+					res.json({success: true, data: withs});
 				}
 			})
 	})
