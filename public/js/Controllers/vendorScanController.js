@@ -13,6 +13,11 @@ angular.module('Cafepay.Controllers')
 				if(response.message == "done"){
 					$scope.done = true;
 					$scope.invalid  = false;
+
+					setTimeout(function(){
+							$scope.done = false;
+							$scope.invalid  = false;
+					},1500)
 					//$rootScope.$broadcast('balance', {data :response.balance})
 					console.log("hare")
 					$scope.$emit('balance',{data : response.balance})
@@ -24,6 +29,10 @@ angular.module('Cafepay.Controllers')
 					console.log("hm")
 					$scope.done = false;
 					$scope.invalid  = true;
+					setTimeout(function(){
+							$scope.done = false;
+							$scope.invalid  = false;
+					},1500)
 				}
 			})
 
@@ -34,4 +43,5 @@ angular.module('Cafepay.Controllers')
 	
 	
 })
+
 

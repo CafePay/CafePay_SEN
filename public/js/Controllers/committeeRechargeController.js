@@ -1,6 +1,8 @@
 angular.module('Cafepay.Controllers')
 
 .controller('committeeRechargeController',function($scope,$http){
+	$scope.done = false;
+	$scope.invalid = false;
 
 	$scope.recharges = {};
 
@@ -22,6 +24,14 @@ angular.module('Cafepay.Controllers')
 		$http.post('/committee/approverecharge',user).success(function(response){
 
 			console.log(response)
+			if(response.success){
+				$scope.done = true;
+				$scope.invalid = false;
+			}
+			else{
+				$scope.done = false;
+				$scope.invalid = true;
+			}
 
 
 
@@ -37,3 +47,5 @@ angular.module('Cafepay.Controllers')
 
 	
 })
+
+

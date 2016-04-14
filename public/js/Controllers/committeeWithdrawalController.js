@@ -1,7 +1,8 @@
 angular.module('Cafepay.Controllers')
 
 .controller('committeeWithdrawalController',function($scope,$http){
-	
+	$scope.done = false;
+	$scope.invalid = false;
 	$scope.withdrawals
 	
 	$http.get('/committee/getwithdrawal').success(function(response){
@@ -19,9 +20,19 @@ angular.module('Cafepay.Controllers')
 
 			console.log(response)
 
+			if(response.success){
+				$scope.done = true;
+				$scope.invalid = false;
+			}
+			else{
+				$scope.done = false;
+				$scope.invalid = true;
+			}
 
 
 		})
 		
 	}
 })
+
+

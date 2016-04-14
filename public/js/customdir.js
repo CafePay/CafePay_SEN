@@ -30,10 +30,17 @@ angular.module('custom.dir',[])
 
 
 										if(response.message == "done"){
-;
 
-											$('#scanned1').css("display", "block");
-											$('#notvalid1').css("display", "none");
+											
+												$('#scanned1').css("display", "block");
+												$('#notvalid1').css("display", "none");
+											
+
+											setTimeout(function(){
+													$('#scanned1').css("display", "none");
+												$('#notvalid1').css("display", "none");
+												},1500)
+
 											//$scope.done = true;
 											//$scope.invalid  = false;
 											//$rootScope.$broadcast('balance', {data :response.balance})
@@ -44,8 +51,19 @@ angular.module('custom.dir',[])
 
 										}
 										else if (response.message == "invalid"){
-											$('#scanned1').css("display", "none");
-											$('#notvalid1').css("display", "block");
+
+											
+
+												$('#scanned1').css("display", "none");
+												$('#notvalid1').css("display", "block");
+
+											
+
+											setTimeout(function(){
+													$('#scanned1').css("display", "none");
+												$('#notvalid1').css("display", "none");
+												},1500)
+											
 											//$scope.done = false;
 											//$scope.invalid  = true;
 										}
@@ -74,3 +92,4 @@ angular.module('custom.dir',[])
 
 
 })
+
