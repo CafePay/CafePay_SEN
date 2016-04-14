@@ -17,14 +17,6 @@ var generatorOptions = {
 		uppercase: true
 }
 
-/*var smtp = nodemailer.createTransport("	SMTP", {
-	service: "Gmail",
-	auth: {
-		user: "kirankatariya8778@gmail.com",
-		pass: "kirudemon"
-	}
-});*/
-
 module.exports = function(app,router) {
 
 	router.get('/itemlist',function(req,res){

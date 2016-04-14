@@ -180,7 +180,7 @@ module.exports = function(app, customer){
 	});
 
 	customer.post('/generate-qr-code', function(req, res){
-		function create(token,data,callback){
+		function create(token, data, callback){
 			var abc = jwt.decode(token, app.get('superSecret'));
 			decoded = abc;
 			var sid= generator.generate(shortidOptions);
@@ -200,7 +200,6 @@ module.exports = function(app, customer){
 				item: data._id,
 				ctime: gentime,
 				hmac: mac
-
 			});
 									
 			code.save(function(err){
@@ -214,31 +213,23 @@ module.exports = function(app, customer){
 				}
 			}
 
-
-
-
-	
-		reqdata = req.body
-		arr = [];
-		qsum = 0;
-		for (var i=0;i<reqdata.length;i++){
-			
+			reqdata = req.body
+			arr = [];
+			qsum = 0;
+			for (var i=0;i<reqdata.length;i++){
 			arr.push(reqdata[i]._id)
 			qsum = qsum + reqdata[i].quantity;
-			
-		}
-		
-
-		Item.find({ _id: { $in: arr}},function(err,items){
-			console.log("hi")
-			if(err){
-				console.log(err)
-				res.json({success: false})
 			}
+		
+			Item.find({_id: { $in: arr}}, function(err,items){
+			console.log("hi")
+				if(err){
+					console.log(err)
+					res.json({success: false})
+				}
 			var counter = 0;
 			var totalamount = 0;
 			
-
 			function callback(generated){
 				counter = counter + generated;
 				console.log("generated "+ generated)
@@ -249,80 +240,60 @@ module.exports = function(app, customer){
 				}
 			}
 
-				reqdata.filter(function(data){
+			reqdata.filter(function(data){
+				for(var i=0;i<items.length;i++){
+					if(items[i]._id == data._id){
+						totalamount = totalamount + (items[i].price*data.quantity);
+					}
+				}
+			});
 
+			var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
+			decoded = abc;
+
+			User.findOne({_id: decoded._id},function(err,user){
+				console.log("hmm"+ totalamount + " " + counter)
+				if(user.balance < totalamount){
+					console.log("err")
+				}
+				else{
+					function promise(){
+					var deferred  = q.defer();
+					reqdata.filter(function(data){
 					for(var i=0;i<items.length;i++){
-
 						if(items[i]._id == data._id){
-							totalamount = totalamount + (items[i].price*data.quantity);
-
+							for(var j=0;j< data.quantity;j++){
+								token = req.cookies.jwt;
+								create(token,items[i],callback);												
+							}																	
 						}
 					}
-				});
+			})
 
-				var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
-				decoded = abc;
-
-				User.findOne({_id: decoded._id},function(err,user){
-
-
-
-							console.log("hmm"+ totalamount + " " + counter)
-							if(user.balance < totalamount){
-
-								console.log("err")
-							}else{
-
-											
-							function promise(){
-								var deferred  = q.defer();
-										reqdata.filter(function(data){
-
-										for(var i=0;i<items.length;i++){
-
-											if(items[i]._id == data._id){
-
-												for(var j=0;j< data.quantity;j++){
-													
-													token = req.cookies.jwt;
-													create(token,items[i],callback);												
-												}																	
-											}
-										}
-									})
-
-
-
-
-								setTimeout(function(){
-									console.log(counter)
-									if(counter == qsum)
-										deferred.resolve();
-									else
-										deferred.reject()
-								},500);
-
-								return deferred.promise;
+			setTimeout(function(){
+				console.log(counter)
+				if(counter == qsum)
+					deferred.resolve();
+				else
+					deferred.reject()
+								}, 500);
+							return deferred.promise;
 							};
 
 							promise().then(function(){
-
-								
-								
-									console.log("ohh")
-									user.balance = user.balance - totalamount;
-									console.log(totalamount)
-									user.save()
-									console.log(user.balance)
-							
-									res.json({ success: true,amount: user.balance})
-															},function(){
-								console.log("reject")
+								console.log("ohh")
+								user.balance = user.balance - totalamount;
+								console.log(totalamount)
+								user.save()
+								console.log(user.balance)
+								res.json({ success: true,amount: user.balance})
+														},function(){
+							console.log("reject")
 							})
-								}
-				})
-		})	
-});
+						}
+					})
+			})	
+	});
 
 	customer.get("/getamount",function(req,res){
 		var token = req.cookies.jwt;

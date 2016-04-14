@@ -1,13 +1,10 @@
 var express 		= require('express');
 var crypto 			= require('crypto');
-//var toString = require('json-string');
-//var shortid = require('shortid');
 var jwt 			= require('jsonwebtoken');
 var q 				= require('q');
 var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var rn 				= require("random-number");
-var nodemailer 		= require("nodemailer");
 var generator 		= require("generate-password");
 
 var User 			= require('./models/user');
@@ -33,15 +30,6 @@ var OTPoptions = {
 		max: 999999,
 		integer: true
 }
-
-/*var smtp = nodemailer.createTransport("	SMTP", {
-		service: "Gmail",
-		auth: {
-			user: "kirankatariya8778@gmail.com",
-			pass: "kirudemon"
-		}
-});*/
-
 
 module.exports = function(app, admin){
 	
