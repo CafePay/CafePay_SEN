@@ -1,12 +1,11 @@
-
 <div class="container">
 
 <div class="col-sm-6 col-sm-offset-3">
 	
 	<div class="pen-title">
-	<h1>Cafepay</h1>
+	<h1 style="text-transform: uppercase; color: #30a5ff">Cafe<span style="color: white">pay</span></h1>
 	</div>
-	<h1 style="text-transform: uppercase; padding-bottom: 16px; color: #fae596"><span class="fa fa-sign-in"></span> Login</h1>
+	<h1 style="text-transform: uppercase; padding-bottom: 16px; color: #30a5ff"><span class="fa fa-sign-in"></span> Login</h1>
 
 	<!-- show any messages that come back with authentication -->
 	
@@ -17,26 +16,28 @@
 	<!-- LOGIN FORM -->
 	<form>
 		<div class="form-group">
-			<label style="color: #fae596">Username</label>
+			<label style="color: white; font-size: 1.2em">Username</label>
 			<input type="text" class="form-control" name="username" ng-model="user.username">
 		</div>
 		<div class="form-group">
-			<label style="color: #fae596">Password</label>
+			<label style="color: white; font-size: 1.2em">Password</label>
 			<input type="password" class="form-control" name="password" ng-model="user.password">
 		</div>
 
-		<button type="submit" class="btn md cta" ng-click="send(user)">Login</button>
+		<button style="font-size: 1.2em;"type="submit" class="btn md cta" ng-click="send(user)">Login</button>
 	</form>
 
-	<hr >
+	<hr>
 
-	<p style="color: #fae596">Need an account? <a ui-sref="signup" style="color: #98dafc">Signup</a></p>
-	<p style="color: #fae596">Or go <a ui-sref="home" style="color: #98dafc">Home</a>.</p>
-	<p style="color: #fae596"><a ui-sref="forgot" style="color: #98dafc">Forgot password?</a></p>
+	<p style="color: white">Need an account? <a ui-sref="signup" style="color: #30a5ff">Signup</a></p>
+	<p style="color: white">Or go <a ui-sref="home" style="color: #30a5ff">Home</a></p>
+	<p style="color: #fae596"><a ui-sref="forgot" style="color: #30a5ff">Forgot password?</a></p>
 
+
+</div>
 
 </div>
 
-</div>
+
 
 

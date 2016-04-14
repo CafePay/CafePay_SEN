@@ -1,6 +1,13 @@
+* {
+  border-radius: 0 !important;
+}
 
-body {
-      background: #3b3a36;
+hr{
+  color: #30a5ff
+}
+
+  body {
+      
       color: #c0dfd9;
       font-family: 'RobotoDraft', 'Roboto', sans-serif;
       font-size: 14px;
@@ -9,7 +16,7 @@ body {
     }    
         .pen-title {
 
-      padding: 60px 0;
+      padding: 55px 0;
       text-align: center;
       letter-spacing: 2px;
     }
@@ -37,14 +44,14 @@ body {
 }
 
 .cta {
-  background-color: #b3b2cf;
-  color: #e9ece5;
+  background-color: #30a5ff;
+  color: white;
   transition: .2s ease;
 }
 
 .cta:hover {
-  background-color: #e9ece5;
-  color: #b3b2cf;
+  background-color: white;
+  color: #30a5ff;
   transition: .2s ease;
 }
 

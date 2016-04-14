@@ -1,5 +1,13 @@
+* {
+  border-radius: 0 !important;
+}
+
+hr{
+  color: #30a5ff
+}
+
   body {
-      background: #3b3a36;
+      background-color: rgba(60, 60, 60);
       color: #c0dfd9;
       font-family: 'RobotoDraft', 'Roboto', sans-serif;
       font-size: 14px;
@@ -8,7 +16,7 @@
     }    
         .pen-title {
 
-      padding: 60px 0;
+      padding: 55px 0;
       text-align: center;
       letter-spacing: 2px;
     }
@@ -18,7 +26,7 @@
       font-weight: 300;
     }
 
-.btn {
+    .btn {
   display: inline-block;
   border-radius: 2px;
   border: none;
@@ -36,26 +44,26 @@
 }
 
 .cta {
-  background-color: #b3b2cf;
-  color: #e9ece5;
+  background-color: #30a5ff;
+  color: white;
   transition: .2s ease;
 }
 
 .cta:hover {
-  background-color: #e9ece5;
-  color: #b3b2cf;
+  background-color: white;
+  color: #30a5ff;
   transition: .2s ease;
 }
 
 .ghost {
-  background-color: #e9ece5;
-  color: #b3b2cf;
+  background-color: white;
+  color: #30a5ff;
   border:
   transition: .2s ease;
 }
 .ghost:hover {
-  background-color: #b3b2cf   ;
-  color: #e9ece5;
+  background-color: #30a5ff;
+  color: white;
   transition: .2s ease;
 }
 .md{

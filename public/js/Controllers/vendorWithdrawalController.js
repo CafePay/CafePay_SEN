@@ -6,20 +6,30 @@ angular.module('Cafepay.Controllers')
 	$scope.err = false;
 	$scope.valid = false;
 	$http.get('/vendor/getamount').success(function(response){
+
 		$scope.balance = response.balance;
 	})
 
 
 	$scope.send = function(user){
-		if($scope.balance < user.withdrawal){
+
+
+
+		if(user.withdrawal <=0 || (user.withdrawal % 500 != 0)){
 			$scope.done = false;
-			$scope.err = false;
+		$scope.err = false;
+			$scope.valid = true;
+			return;
+		}
+		else if($scope.balance < user.withdrawal){
+			$scope.done = false;
+		$scope.err = false;
 			$scope.valid = true;
 			return;
 		}
 
 		$scope.balance = $scope.balance - user.withdrawal;
-		console.log($scope.balance)
+						console.log($scope.balance)
 	
 		
 		$scope.valid = false;
@@ -51,4 +61,11 @@ angular.module('Cafepay.Controllers')
 		$scope.done = false;
 		$scope.err = false;
 	}
+
+
+
+
+	
 })
+
+
