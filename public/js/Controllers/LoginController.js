@@ -28,14 +28,6 @@ angular.module('Cafepay.Controllers')
                         }
                     if(response.success == true){
 
-                           /* shared.settoken(response.token);
-                            shared.setcuruser(response.user);
-                            shared.setloggedin(true);*/
-                          //  console.log(shared.gettoken())
-                         //   console.log(shared.getcuruser())
-                         //   console.log(shared.getloggedin())
-                         	
-                           // debugger
                             if(response.user.account == "customer")
                                 $state.go("customer")
                             else if(response.user.account == "vendor")

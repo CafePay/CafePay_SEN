@@ -255,8 +255,8 @@ app.post('/signup',function(req,res){
 			});
 			mailList ={};
 			mailList.to = req.body.email;
-			mailList.subject = "Do not reply.";
-			mailList.text = 'Your Cafepay account password is  :'+ password;
+			mailList.subject = "Do not reply";
+			mailList.text = 'Your Cafepay account password is : '+ password;
 			smtp.sendMail(mailList, function(error, response){
 				if(error){
 					console.log(error);
@@ -350,7 +350,7 @@ app.post('/forgot',function(req,res){
 					mailList ={};
 					mailList.to = user.email;
 					mailList.subject = "halo bhaii.. lejo";
-					mailList.text = 'tamaro password is:   '+ password;
+					mailList.text = 'Your new password is : '+ password;
 					smtp.sendMail(mailList, function(error, response){
 						if(error){
 							console.log(error);
