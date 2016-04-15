@@ -194,7 +194,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/forgot.html',
             controller: 'ForgotController',
             data: {
-                css: 'css/forgot.css'
+                css: 'css/entryall.css'
             }
         })
 
@@ -290,16 +290,5 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             }
 
         })
-        /*.state('.adminlog', {
-            url: '/log',
-            templateUrl: 'views/vendorprofile1.html',
-            controller: 'vendorProfileController',
-            data: {
-                css: 'css/styles.css'
-            }
-
-        })*/
-
-      //  $locationProvider.html5Mode(true);
 });
 

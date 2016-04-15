@@ -1,13 +1,6 @@
 angular.module('custom.dir',[])
 .directive('scanner',function($window,$rootScope){
 
-
-
-
-
-
-
-
 	return {
 		restrict : 'E',
 		template :'<div id="reader" style="width:300px;height:250px"></div>',
@@ -15,31 +8,31 @@ angular.module('custom.dir',[])
 			console.log("jay 6")
 						//var count = null;
 						$('#reader').html5_qrcode(function(data){
-									console.log(data)
+							console.log(data)
 									//$('#reader').remove();
 									$rootScope.$broadcast("ave",data);
 
 									$('#read').html(data);
-									var send = { hmac : data/*"32bb6f357ce96f51c6c1cc5441210294c0c225ad793947183575ff732af5c809"*/};
+								var send = { hmac : data/*"32bb6f357ce96f51c6c1cc5441210294c0c225ad793947183575ff732af5c809"*/};
 									//if(count){
 									///	count = false;
 									$.post('/vendor/scanqrcode/hmac',send,function(response){
 										console.log(response)
 										//count = true;
-									
+										
 
 
 										if(response.message == "done"){
 
 											
-												$('#scanned1').css("display", "block");
-												$('#notvalid1').css("display", "none");
+											$('#scanned1').css("display", "block");
+											$('#notvalid1').css("display", "none");
 											
 
 											setTimeout(function(){
-													$('#scanned1').css("display", "none");
+												$('#scanned1').css("display", "none");
 												$('#notvalid1').css("display", "none");
-												},1500)
+											},1500)
 
 											//$scope.done = true;
 											//$scope.invalid  = false;
@@ -54,15 +47,15 @@ angular.module('custom.dir',[])
 
 											
 
-												$('#scanned1').css("display", "none");
-												$('#notvalid1').css("display", "block");
+											$('#scanned1').css("display", "none");
+											$('#notvalid1').css("display", "block");
 
 											
 
 											setTimeout(function(){
-													$('#scanned1').css("display", "none");
+												$('#scanned1').css("display", "none");
 												$('#notvalid1').css("display", "none");
-												},1500)
+											},1500)
 											
 											//$scope.done = false;
 											//$scope.invalid  = true;
@@ -70,26 +63,26 @@ angular.module('custom.dir',[])
 										/*setTimeout(function(){
 										console.log("oho")
 									},5000)*/
-									})
+								})
 
 									
 									
 							//	}
-								},
-								function(error){
-									$('#read_error').html(error);
-								}, function(videoError){
-									$('#vid_error').html(videoError);
-								}
-							);
+						},
+						function(error){
+							$('#read_error').html(error);
+						}, function(videoError){
+							$('#vid_error').html(videoError);
+						}
+						);
 
 
 
-		}
-	}
+					}
+				}
 
 
 
 
-})
+			})
 
