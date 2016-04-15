@@ -12,8 +12,5 @@ angular.module('Cafepay.Controllers')
 			console.log(response.data)
 		}
 
-
-		//console.log(response)
-
 	})
 })

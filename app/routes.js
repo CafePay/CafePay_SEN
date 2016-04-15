@@ -1,7 +1,6 @@
+//Requiring dependencies =================================================
 var express 		= require("express");
 var crypto 			= require('crypto');
-var toString 		= require('json-string');
-var shortid 		= require('shortid');
 var jwt 			= require('jsonwebtoken');
 var q 				= require('q');
 var cookieParser 	= require('cookie-parser');
@@ -10,6 +9,7 @@ var rn 				= require("random-number");
 var nodemailer 		= require("nodemailer");
 var generator 		= require("generate-password");
 
+//Requiring schemas ======================================================
 var User 			= require('./models/user');
 var Item 			= require('./models/item');
 var QR 				= require('./models/qrcode');
@@ -42,16 +42,17 @@ var OTPoptions={
 		integer: true
 }
 
+//Mail configurations ====================================================
 var smtp = nodemailer.createTransport("	SMTP", {
 	service: "Gmail",
 	auth: {
-		user: "kirankatariya8778@gmail.com",
-		pass: "kirudemon"
+		user: "cafepaydaiict@gamil.com",
+		pass: "daiict123456789"
 	}
 });
 
-
-module.exports = function(app, passport) {
+//Exporting vendor routes =====================================================
+module.exports = function(app) {
 
 	app.use(cookieParser());
 
@@ -65,12 +66,14 @@ module.exports = function(app, passport) {
 		}
 	}
 
+//Using express router ======================================================
 	var router = express.Router();
 	var customer = express.Router();
 	var vendor = express.Router();
 	var admin = express.Router();
 	var committee = express.Router();
 
+//Using middlewares, It will change the routes ===============================
 	app.use('/customer',customer);
 	app.use('/vendor',vendor);
 	app.use('/admin',admin);
@@ -196,6 +199,7 @@ module.exports = function(app, passport) {
 
 	});
 
+//Get signup page ==========================================================
 	app.post('/signup',function(req,res){
 		User.findOne({$or:[{email:req.body.email},{username:req.body.username}]},function(err,user){
 		response={};
@@ -236,6 +240,7 @@ module.exports = function(app, passport) {
 		})
 	})
 
+//Get forgot password page ==========================================================
 	app.post('/forgot',function(req,res){
 		User.findOne(({email:req.body.email}),function(err,user){
 				response = {};
@@ -270,6 +275,7 @@ module.exports = function(app, passport) {
 		})
 	})
 	
+//Redirecting to index page while logout ==========================================================
 	app.post('/logout',function(req,res){
 		Temptoken.remove({token: req.cookies.jwt},function(err){
 				if(!err)
@@ -277,6 +283,7 @@ module.exports = function(app, passport) {
 		})
 	})
 
+//Send feedback to committee ==========================================================
 	customer.post('/sendfeedback',function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
@@ -305,6 +312,7 @@ module.exports = function(app, passport) {
 		})
 	})
 
+//Send complaints ==========================================================
 	customer.post('/sendcomplaint',function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
@@ -333,6 +341,7 @@ module.exports = function(app, passport) {
 		})
 	})
 
+//Request for recharge ==========================================================
 	customer.post('/requestrecharge',function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
@@ -375,6 +384,7 @@ module.exports = function(app, passport) {
 		})
 	})
 
+//Change password ==========================================================
 	customer.post('/changepassword',function(req,res){
 		console.log(req.body)
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
@@ -405,6 +415,7 @@ module.exports = function(app, passport) {
 		})
 	})
 
+//Get transaction logs ==========================================================
 	customer.get('/getlogs',function(req,res){
 		Transaction.find({customer: req.decoded._id})
 			   .populate('item' , 'name price')
@@ -415,6 +426,7 @@ module.exports = function(app, passport) {
 			   })
 	})
 
+//Get profile page ==========================================================
 	customer.get('/profile', mid,mid1, function(req, res) {
 			User.findOne({username: req.decoded.username})
 				.exec(function(err,doc){
@@ -423,6 +435,7 @@ module.exports = function(app, passport) {
 			
 	});
 
+//Generate QR Codes =============================================================
 	customer.post('/generate-qr-code', function(req, res){
 		function create(token,data,callback){
 			var abc = jwt.decode(token, app.get('superSecret'));
@@ -534,6 +547,7 @@ module.exports = function(app, passport) {
 		})	
 	});
 
+//Get amount ==========================================================
 	customer.get("/getamount", function(req,res){
 		var token = req.cookies.jwt;
 		var abc = jwt.decode(token, app.get('superSecret'));
@@ -549,6 +563,7 @@ module.exports = function(app, passport) {
 		})
 	})
 
+//Get QR Codes ==========================================================
 	customer.get("/myqrcodes", function(req,res){
 		var token = req.cookies.jwt;
 		var abc = jwt.decode(token, app.get('superSecret'));
@@ -561,6 +576,7 @@ module.exports = function(app, passport) {
 		  })
 	})
 
+//Get recahrge logs ==========================================================
 	customer.get('/getwrlogs', function(req,res){
 		Transactionwr.find({owner: req.decoded.username})
 			.exec(function(err, logs){

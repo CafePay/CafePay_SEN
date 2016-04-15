@@ -1,22 +1,10 @@
+//Requiring dependencies ===============================================
 var express 		= require('express');
-var crypto 			= require('crypto');
-var toString 		= require('json-string');
-var shortid 		= require('shortid');
-var jwt 			= require('jsonwebtoken');
 var cookieParser 	= require('cookie-parser');
-var nodemailer 		= require("nodemailer");
-var generator 		= require("generate-password");
 
-var User 			= require('./models/user');
 var Item 			= require('./models/item');
 
-var generatorOptions = {
-		length: 8,
-		number: true,
-		symbols: false,
-		uppercase: true
-}
-
+//Getting items from Item Schema ========================================
 module.exports = function(app,router) {
 
 	router.get('/itemlist',function(req,res){

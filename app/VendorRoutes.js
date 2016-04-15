@@ -1,7 +1,6 @@
+//Requiring dependencies ==========================================================
 var express 		= require("express");
 var crypto 			= require('crypto');
-var toString 		= require('json-string');
-var shortid 		= require('shortid');
 var jwt 			= require('jsonwebtoken');
 var q 				= require('q');
 var cookieParser 	= require('cookie-parser');
@@ -10,6 +9,7 @@ var rn 				= require('random-number');
 var nodemailer 		= require("nodemailer");
 var generator 		= require("generate-password");
 
+//Requiring Schemas ==========================================================
 var User 			= require('./models/user');
 var Item 			= require('./models/item');
 var QR 				= require('./models/qrcode');
@@ -29,53 +29,56 @@ var generatorOptions = {
 }
 
 var OTPoptions={
-		min : 100000,
-		max : 999999,
-		integer : true
+		min: 100000,
+		max: 999999,
+		integer: true
 }
 
+//Mail configuration =====================================================
 var smtp = nodemailer.createTransport("SMTP", {
 	service: "Gmail",
 	auth: {
-		user: "kirankatariya8778@gmail.com",
-		pass: "kirudemon"
+		user: "cafepaydaiict@gmail.com",
+		pass: "daiict123456789"
 	}
 });
 
-
+//Exporting vendor routes ====================================================
 module.exports = function(app, vendor){
 	app.use(cookieParser());
 
+//Get profile page ==========================================================
 	vendor.get('/profile', function(req, res) {
-		User.findOne({username : req.decoded.username})
+		User.findOne({username: req.decoded.username})
 			.exec(function(err,doc){
-				res.json({success : true, username : req.decoded.username,balance : doc.balance});
+				res.json({success: true, username: req.decoded.username,balance: doc.balance});
 			})
 			
 	});
 
+//Send complaint ==========================================================
 	vendor.post('/sendcomplaint', function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
 		console.log(decoded);
 		console.log(req.body)
-		User.findOne({_id : decoded._id}, function(err,user){
+		User.findOne({_id: decoded._id}, function(err,user){
 			if(err || !user){
 				console.log(err)
-				res.json({success : false});
+				res.json({success: false});
 			}
 			else{
 				var comp = Complaint({
-					subject : req.body.subject,
-					complaint : req.body.complaint,
-					owner : decoded._id
+					subject: req.body.subject,
+					complaint: req.body.complaint,
+					owner: decoded._id
 				})
 				comp.save(function(err){
 					if(err){
 						console.log(err);
 					}
 					else{
-						res.json({success : true});
+						res.json({success: true});
 					}
 				});
 
@@ -84,25 +87,26 @@ module.exports = function(app, vendor){
 
 	})
 
+//Request withdrawal ==========================================================
 	vendor.post('/requestwithdrawal', function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
 		console.log(decoded);
 		console.log(req.body)
-		User.findOne({_id : decoded._id},function(err,user){
+		User.findOne({_id: decoded._id},function(err,user){
 			if(err || !user){
 				console.log(err)
 				console.log("hi")
-				res.json({success : false});
+				res.json({success: false});
 			}
 			else{
 				var otp = rn(OTPoptions);
 				console.log("ohoho")
 				console.log(req.body.withdrawal)
 				var  withdraw= Withdrawal({
-					amount : req.body.withdrawal,
-					OTP : otp,
-					owner : decoded._id
+					amount: req.body.withdrawal,
+					OTP: otp,
+					owner: decoded._id
 				})
 				withdraw.save(function(err){
 					if(err){
@@ -121,7 +125,7 @@ module.exports = function(app, vendor){
 								console.log("Message sent: " + response.message);
 							}
 						});
-						res.json({success : true});
+						res.json({success: true});
 					}
 				});
 			}
@@ -130,121 +134,123 @@ module.exports = function(app, vendor){
 
 var last;
 
-vendor.post('/scanqrcode/hmac',function(req,res){
-	console.log(req.body.hmac)
-	if (req.body.hmac == last){
-		res.json({success : false , message : "scannedlast"})
-		return;
-	}
-	var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
-	decoded = abc;
-	QR.findOne({hmac : req.body.hmac})
-	  .populate('item', 'name price')
-	  .populate('owner', 'username')
-	  .select('shortid item hmac owner ctime')
-	  .exec(function(err,qr){
-	  	if(!qr){
-	  		res.json({success : false , message : "invalid"});
-	  		return;
-	  	}
-	  	if(qr.scanned == true){
-	  		res.json({success : false , message : "invalid"});
-	  		return;
-	  	}
-	  	if(qr){
-	  		User.findOne({_id : decoded._id})
-	  			.exec(function(err,vendor){
-	  				vendor.balance = vendor.balance + qr.item[0].price;
-	  				vendor.save();
-	  				var log = new Transaction({	customer : qr.owner._id,
-	  											vendor : decoded._id,
-	  											code : qr,
-	  											item : qr.item[0]._id,
-	  											ctime : new Date().toString()
-											});
-	  				log.save();
-	  				qr.scanned = true;
-	  				last = qr.hmac;
-	  				qr.remove();
-				  	res.json({success : true,message : "done", balance : vendor.balance})
-	  			})
-	  	}
-	  })
+//This is a to remove QR Codes from database when it scanned ==========================================================
 
-
-})
-
-	vendor.post('/scanqrcode/shortid',function(req,res){
-		console.log(req.body.id)
+	vendor.post('/scanqrcode/hmac',function(req,res){
+		console.log(req.body.hmac)
+		if (req.body.hmac == last){
+			res.json({success: false , message: "scannedlast"})
+			return;
+		}
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
-		QR.findOne({shortid : req.body.id})
+		QR.findOne({hmac: req.body.hmac})
 		  .populate('item', 'name price')
 		  .populate('owner', 'username')
 		  .select('shortid item hmac owner ctime')
 		  .exec(function(err,qr){
 		  	if(!qr){
-		  		res.json({success : false , message : "invalid"});
+		  		res.json({success: false , message: "invalid"});
 		  		return;
 		  	}
 		  	if(qr.scanned == true){
-		  		res.json({success : false , message : "invalid"});
+		  		res.json({success: false , message: "invalid"});
 		  		return;
 		  	}
 		  	if(qr){
-		  		User.findOne({_id : decoded._id})
+		  		User.findOne({_id: decoded._id})
 		  			.exec(function(err,vendor){
 		  				vendor.balance = vendor.balance + qr.item[0].price;
 		  				vendor.save();
-		  				var log = new Transaction({	customer : qr.owner._id,
-		  											vendor : decoded._id,
-		  											code : qr,
-		  											item : qr.item[0]._id,
-		  											ctime : new Date().toString()
+		  				var log = new Transaction({	customer: qr.owner._id,
+		  											vendor: decoded._id,
+		  											code: qr,
+		  											item: qr.item[0]._id,
+		  											ctime: new Date().toString()
 												});
 		  				log.save();
-		  				last = qr.hmac;
 		  				qr.scanned = true;
+		  				last = qr.hmac;
 		  				qr.remove();
-					  	res.json({success : true,message : "done", balance : vendor.balance})
+					  	res.json({success: true,message: "done", balance: vendor.balance})
 		  			})
 		  	}
 		  })
 	})
 
+//Scanning QR Codes using shortid ==========================================================
+	vendor.post('/scanqrcode/shortid',function(req,res){
+		console.log(req.body.id)
+		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
+		decoded = abc;
+		QR.findOne({shortid: req.body.id})
+		  .populate('item', 'name price')
+		  .populate('owner', 'username')
+		  .select('shortid item hmac owner ctime')
+		  .exec(function(err,qr){
+		  	if(!qr){
+		  		res.json({success: false , message: "invalid"});
+		  		return;
+		  	}
+		  	if(qr.scanned == true){
+		  		res.json({success: false , message: "invalid"});
+		  		return;
+		  	}
+		  	if(qr){
+		  		User.findOne({_id: decoded._id})
+		  			.exec(function(err,vendor){
+		  				vendor.balance = vendor.balance + qr.item[0].price;
+		  				vendor.save();
+		  				var log = new Transaction({	customer: qr.owner._id,
+		  											vendor: decoded._id,
+		  											code: qr,
+		  											item: qr.item[0]._id,
+		  											ctime: new Date().toString()
+												});
+		  				log.save();
+		  				last = qr.hmac;
+		  				qr.scanned = true;
+		  				qr.remove();
+					  	res.json({success: true,message: "done", balance: vendor.balance})
+		  			})
+		  	}
+		  })
+	})
 
+//Get transaction logs ==========================================================
 	vendor.get('/getlogs',function(req,res){
-		Transaction.find({vendor : req.decoded._id})
+		Transaction.find({vendor: req.decoded._id})
 				   .populate('item' , 'name price')
 				   .populate('customer' , 'username')
 				   .exec(function(err,logs){
 				   		if(logs)
-				   			res.json({success : true , data : logs});
+				   			res.json({success: true , data: logs});
 				   })
 	})
 
+//Get transaction logs of withdrawal ==========================================================
 	vendor.get('/getwrlogs',function(req,res){
-		Transactionwr.find({owner : req.decoded.username})
+		Transactionwr.find({owner: req.decoded.username})
 		   .exec(function(err,logs){
 		   	if(logs)
-				res.json({success : true , data : logs});
+				res.json({success: true , data: logs});
 		    })
 	})
 
+//Get amount ==========================================================
 	vendor.get("/getamount",function(req,res){
 		var token = req.cookies.jwt;
 		var abc = jwt.decode(token, app.get('superSecret'));
 		decoded = abc;
 		console.log(decoded)
-		User.findOne({_id : decoded._id},function(err,user){
+		User.findOne({_id: decoded._id},function(err,user){
 			if(err && !user)
 				console.log(err);
 			else {
-				res.json({balance : user.balance});
+				res.json({balance: user.balance});
 				console.log(user.balance);
 			}
 		})
-
 	})
 	
 }

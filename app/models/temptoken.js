@@ -1,3 +1,4 @@
+//This is Schema to store token temporary
 var mongoose = require('mongoose');
 var User = require('./user');
 

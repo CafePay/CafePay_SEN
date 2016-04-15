@@ -1,15 +1,15 @@
+//Requiring dependencies =======================================================
 var express 		= require("express");
 var crypto 			= require('crypto');
-var toString 		= require('json-string');
-var shortid 		= require('shortid');
 var jwt 			= require('jsonwebtoken');
 var q 				= require('q');
 var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var rn 				= require("random-number");
 var nodemailer 		= require("nodemailer");
-var generator 		= require("generate-password");
+var generator 		= require('generate-password');
 
+//Requiring schemas ============================================================
 var User 			= require('./models/user');
 var Item 			= require('./models/item');
 var QR 				= require('./models/qrcode');
@@ -32,19 +32,21 @@ var OTPoptions={
 		integer: true
 }
 
+//Mail configuration ==========================================================
 var smtp = nodemailer.createTransport("SMTP", {
 		service: "Gmail",
 		auth: {
-			user: "kirankatariya8778@gmail.com",
-			pass: "kirudemon"
+			user: "cafepaydaiict@gmail.com",
+			pass: "daiict123456789"
 		}
 });
 
-
+//Exporting customer routes
 module.exports = function(app, customer){
 	
 	app.use(cookieParser());
 
+//Sending feedback ==========================================================
 	customer.post('/sendfeedback', function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
@@ -73,6 +75,7 @@ module.exports = function(app, customer){
 		})
 	})
 
+//Sending complaint ==========================================================
 	customer.post('/sendcomplaint', function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
@@ -104,6 +107,7 @@ module.exports = function(app, customer){
 
 	})
 
+//Requesting recharge ==========================================================
 	customer.post('/requestrecharge', function(req,res){
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
@@ -146,6 +150,7 @@ module.exports = function(app, customer){
 		})
 	})
 
+//Change password ==========================================================
 	customer.post('/changepassword',function(req,res){
 		console.log(req.body)
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
@@ -175,10 +180,12 @@ module.exports = function(app, customer){
 		})
 	})
 
+//Get customer profile ==========================================================
 	customer.get('/profile', function(req, res) {
 		res.json({success: true});
 	});
 
+//Generate QRCode ==========================================================
 	customer.post('/generate-qr-code', function(req, res){
 		function create(token, data, callback){
 			var abc = jwt.decode(token, app.get('superSecret'));
@@ -295,6 +302,7 @@ module.exports = function(app, customer){
 			})	
 	});
 
+//Get amount  ==========================================================
 	customer.get("/getamount",function(req,res){
 		var token = req.cookies.jwt;
 		var abc = jwt.decode(token, app.get('superSecret'));

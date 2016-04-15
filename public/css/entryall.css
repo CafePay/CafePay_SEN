@@ -6,27 +6,27 @@ hr{
   color: #30a5ff
 }
 
-  body {
-      background: #3c3c3c;
-      color: #c0dfd9;
-      font-family: 'RobotoDraft', 'Roboto', sans-serif;
-      font-size: 14px;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }    
-        .pen-title {
+body {
+  background-color: #3c3c3c;
+  color: #c0dfd9;
+  font-family: 'RobotoDraft', 'Roboto', sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}    
+.pen-title {
 
-      padding: 55px 0;
-      text-align: center;
-      letter-spacing: 2px;
-    }
-    .pen-title h1 {
-      margin: 0 0 20px;
-      font-size: 48px;
-      font-weight: 300;
-    }
+  padding: 55px 0;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.pen-title h1 {
+  margin: 0 0 20px;
+  font-size: 48px;
+  font-weight: 300;
+}
 
-    .btn {
+.btn {
   display: inline-block;
   border-radius: 2px;
   border: none;
@@ -56,21 +56,21 @@ hr{
 }
 
 .ghost {
-  background-color: white;
-  color: #30a5ff;
+  background-color: #e9ece5;
+  color: #b3b2cf;
   border:
   transition: .2s ease;
 }
 .ghost:hover {
-  background-color: #30a5ff;
-  color: white;
+  background-color: #b3b2cf   ;
+  color: #e9ece5;
   transition: .2s ease;
 }
 .md{
-    width: 20%;
+  width: 20%;
 }
 @media (max-width: 480px) {
-  
+
   .md {
     width: 50%;
   }

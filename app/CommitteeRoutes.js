@@ -1,7 +1,6 @@
+//Requiring dependencies ================================================
 var express 		= require('express');
 var crypto 			= require('crypto');
-var toString 		= require('json-string');
-var shortid 		= require('shortid');
 var jwt 			= require('jsonwebtoken');
 var q 				= require('q');
 var cookieParser 	= require('cookie-parser');
@@ -10,6 +9,7 @@ var rn 				= require('random-number');
 var nodemailer 		= require('nodemailer');
 var generator 		= require('generate-password');
 
+//Requiring Schemas =====================================================
 var User 			= require('./models/user');
 var Item 			= require('./models/item');
 var QR 				= require('./models/qrcode');
@@ -42,15 +42,17 @@ var smtp = nodemailer.createTransport("SMTP", {
 		}
 });
 
-
+//Exporting committee routes ==================================================
 module.exports = function(app, committee){
 
 	app.use(cookieParser());
 
+//Get committee profile ==========================================================
 	committee.get('/profile', function(req, res) {
 		res.json({success: true, username: req.decoded.username});
 	});
 
+//Get feedbacks from customer ==========================================================
 	committee.get('/getfeedback', function(req,res){
 		Feedback.find({})
 			.select('subject feedback')
@@ -61,6 +63,7 @@ module.exports = function(app, committee){
 			})
 	})
 
+//Get Recharge Request ==========================================================
 	committee.get('/getrecharge', function(req,res){
 		Recharge.find({})
 			.populate('owner', 'username')
@@ -72,6 +75,7 @@ module.exports = function(app, committee){
 			})
 	})
 
+//Get Withdrawal request ==========================================================
 	committee.get('/getwithdrawal', function(req,res){
 		Withdrawal.find({})
 			.populate('owner', 'username')
@@ -83,6 +87,7 @@ module.exports = function(app, committee){
 			})
 	})
 
+//Approve request for withdrawal ==========================================================
 	committee.post('/approvewithdrawal', function(req, res){
 		Withdrawal.findOne({OTP: req.body.otp})
 			.populate('owner', 'username balance')
@@ -110,6 +115,7 @@ module.exports = function(app, committee){
 			})
 	})	
 
+//Approve withdrawal request ==========================================================
 	committee.post('/approverecharge', function(req,res){
 		Recharge.findOne({OTP: req.body.otp})
 			.populate('owner', 'username balance')

@@ -1,3 +1,4 @@
+//Transaction Schema for Request and Withdrawal
 var mongoose = require('mongoose');
 var User = require('./user');
 var QR = require('./qrcode');

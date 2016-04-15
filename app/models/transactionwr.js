@@ -1,3 +1,4 @@
+//Scahema for transaction using QRCodes
 var mongoose = require('mongoose');
 var User = require('./user');
 var QR = require('./qrcode');

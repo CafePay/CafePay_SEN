@@ -1,12 +1,10 @@
+//Requiring dependencies ======================================================
 var express 		= require('express');
-var crypto 			= require('crypto');
 var jwt 			= require('jsonwebtoken');
-var q 				= require('q');
 var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
-var rn 				= require("random-number");
-var generator 		= require("generate-password");
 
+//Requiring Schema ============================================================
 var User 			= require('./models/user');
 var Item 			= require('./models/item');
 var QR 				= require('./models/qrcode');
@@ -15,22 +13,8 @@ var Feedback 		= require('./models/feedback');
 var Complaint 		= require('./models/complaint');
 var Transaction 	= require('./models/transaction');
 var Transactionwr 	= require('./models/transactionwr');
-var Temptoken 		= require('./models/temptoken');
-var config 			= require('../config/database');
 
-var generatorOptions = {
-		length: 8,
-		number: true,
-		symbols: true,
-		uppercase: true
-}
-
-var OTPoptions = {
-		min: 100000,
-		max: 999999,
-		integer: true
-}
-
+//Exporting admin routes ========================================================
 module.exports = function(app, admin){
 	
 	app.use(cookieParser());
@@ -39,6 +23,7 @@ module.exports = function(app, admin){
 		res.json({success: true, username: req.decoded.username});
 	})
 
+//Get transaction logs ==========================================================
 	admin.get('/getlogs',function(req,res){
 		Transaction.find({})
 			.populate('item', 'name price')
@@ -51,6 +36,7 @@ module.exports = function(app, admin){
 			})
 	})
 
+//Get Request & Withdrawal logs ==================================================
 	admin.get('/getwrlogs',function(req,res){
 		Transactionwr.find({})
 			.exec(function(err,logs){
@@ -60,6 +46,7 @@ module.exports = function(app, admin){
 		   	})
 	})
 
+//Get Complaints ===================================================================
 	admin.get('/getcomplaint',function(req,res){
 		Complaint.find({})
 			.populate('owner', ' username')
@@ -69,5 +56,4 @@ module.exports = function(app, admin){
 				}
 		    })
 	})
-
 }

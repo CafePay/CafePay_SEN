@@ -54,7 +54,10 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/scanqrcodes',
             templateUrl: 'views/vendorscan.html',
             controller: 'vendorScanController'
-         
+            /*data: {
+                css: 'css/generate1.css'
+            }*/
+
         })
         .state('customer.generate', {
             url: '/generate',
@@ -79,7 +82,9 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/withdrawal',
             templateUrl: 'views/vendorwithdrawal.html',
             controller: 'vendorWithdrawalController'
-         
+            /*data: {
+                css: 'css/profile1.css'
+            }*/
 
         })
         .state('customer.history', {

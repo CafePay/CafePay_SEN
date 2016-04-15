@@ -1,3 +1,4 @@
+//Qrcode Schema
 var mongoose = require('mongoose');
 var User = require('./user');
 var Item = require('./item');
