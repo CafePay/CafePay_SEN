@@ -1,5 +1,6 @@
 angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','uiRouterStyles','monospaced.qrcode','custom.dir'])
 
+
 .config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     
     $urlRouterProvider.otherwise('/');
@@ -12,12 +13,16 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/entry.html',
             controller: 'MainController',
             data: {
-			    css: 'css/entry.css'
-			}
+                css: 'css/entryall.css'
+            }
         })
         .state('forbidden', {
             url: '/forbidden',
             templateUrl: 'views/forbidden.html'
+            //controller: 'vendorProfileController',
+            /*data: {
+                css: 'css/vendorprofile.css'
+            }*/
 
         })
         .state('customer', {
@@ -25,8 +30,9 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/customerprofile1.html',
             controller: 'customerProfileController',
             data: {
-			    css: 'css/styles.css'
-			}
+                css: 'css/styles.css'
+            }
+
         })
         .state('vendor', {
             url: '/vendor',
@@ -52,6 +58,9 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/scanqrcodes',
             templateUrl: 'views/vendorscan.html',
             controller: 'vendorScanController'
+            /*data: {
+                css: 'css/generate1.css'
+            }*/
 
         })
         .state('customer.generate', {
@@ -67,6 +76,9 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/recharge',
             templateUrl: 'views/customerrecharge.html',
             controller: 'customerRechargeController'
+            /*data: {
+                css: 'css/profile1.css'
+            }*/
 
         })
 
@@ -74,6 +86,10 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/withdrawal',
             templateUrl: 'views/vendorwithdrawal.html',
             controller: 'vendorWithdrawalController'
+            /*data: {
+                css: 'css/profile1.css'
+            }*/
+
         })
         .state('customer.history', {
             url: '/history',
@@ -162,16 +178,16 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/login.html',
             controller: 'LoginController',
             data: {
-			    css: 'css/login.css'
-			}
+                css: 'css/entryall.css'
+            }
         })
         .state('signup', {
             url: '/signup',
             templateUrl: 'views/signup.html',
             controller: 'SignupController',
             data: {
-			    css: 'css/signup.css'
-			}
+                css: 'css/entryall.css'
+            }
         })
         .state('forgot', {
             url: '/forgot',
@@ -263,6 +279,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             data: {
                 css: 'css/styles.css'
             }
+
         })
         .state('committee', {
             url: '/committee',
@@ -273,5 +290,16 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             }
 
         })
+        /*.state('.adminlog', {
+            url: '/log',
+            templateUrl: 'views/vendorprofile1.html',
+            controller: 'vendorProfileController',
+            data: {
+                css: 'css/styles.css'
+            }
+
+        })*/
+
+      //  $locationProvider.html5Mode(true);
 });
 
