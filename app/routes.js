@@ -46,7 +46,7 @@ var OTPoptions={
 var smtp = nodemailer.createTransport("	SMTP", {
 	service: "Gmail",
 	auth: {
-		user: "cafepaydaiict@gamil.com",
+		user: "cafepaydaiict@gmail.com",
 		pass: "daiict123456789"
 	}
 });

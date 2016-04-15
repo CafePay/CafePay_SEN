@@ -1,3 +1,4 @@
+//Change password controller =================================================
 angular.module('Cafepay.Controllers')
 
 .controller('ChangepasswordController',function($scope,$http){

@@ -1,3 +1,4 @@
+//Admin profile controller =========================================
 	angular.module('Cafepay.Controllers')
 
 	.controller('adminProfileController',function($scope,$http,$location,token){

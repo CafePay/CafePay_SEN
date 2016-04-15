@@ -1,3 +1,4 @@
+//Log cotroller for admon =======================================
 angular.module('Cafepay.Controllers')
 
 .controller('adminLogController',function($scope,$http){

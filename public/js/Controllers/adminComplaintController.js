@@ -1,3 +1,5 @@
+//Complaint controller for admin page =======================================
+
 angular.module('Cafepay.Controllers')
 
 .controller('adminComplaintController',function($scope,$http){

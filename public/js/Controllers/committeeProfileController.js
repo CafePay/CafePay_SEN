@@ -1,3 +1,4 @@
+//Committee profile controller =======================================================
 angular.module('Cafepay.Controllers')
 
 .controller('committeeProfileController',function($scope,$http,$location,token){

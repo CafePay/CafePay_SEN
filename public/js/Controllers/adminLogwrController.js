@@ -1,3 +1,4 @@
+// Log of recharge and withdrawal controller =======================================
 angular.module('Cafepay.Controllers')
 
 .controller('adminLogwrController',function($scope,$http){
