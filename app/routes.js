@@ -368,7 +368,7 @@ module.exports = function(app) {
 					mailList ={};
 					mailList.to = user.email;
 					mailList.subject = "OTP";
-					mailList.text = 'tamaro OTP is  "'+ otp+'"';
+					mailList.text = 'Your One Time Password is  "'+ otp+'"';
 					smtp.sendMail(mailList, function(error, response){
 						if(error){
 							console.log(error);
