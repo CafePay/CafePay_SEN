@@ -19,10 +19,6 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         .state('forbidden', {
             url: '/forbidden',
             templateUrl: 'views/forbidden.html'
-            //controller: 'vendorProfileController',
-            /*data: {
-                css: 'css/vendorprofile.css'
-            }*/
 
         })
         .state('customer', {
@@ -58,10 +54,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/scanqrcodes',
             templateUrl: 'views/vendorscan.html',
             controller: 'vendorScanController'
-            /*data: {
-                css: 'css/generate1.css'
-            }*/
-
+         
         })
         .state('customer.generate', {
             url: '/generate',
@@ -86,9 +79,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             url: '/withdrawal',
             templateUrl: 'views/vendorwithdrawal.html',
             controller: 'vendorWithdrawalController'
-            /*data: {
-                css: 'css/profile1.css'
-            }*/
+         
 
         })
         .state('customer.history', {
