@@ -1,20 +1,11 @@
 /*
   Ported to JavaScript by Lazar Laszlo 2011 
-  
   lazarsoft@gmail.com, www.lazarsoft.info
-  
-*/
-
-/*
-*
 * Copyright 2007 ZXing authors
-*
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
-*
 *      http://www.apache.org/licenses/LICENSE-2.0
-*
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -111,15 +102,9 @@ function Version( versionNumber,  alignmentPatternCenters,  ecBlocks1,  ecBlocks
 		{
 			var dimension = this.DimensionForVersion;
 			var bitMatrix = new BitMatrix(dimension);
-			
-			// Top left finder pattern + separator + format
 			bitMatrix.setRegion(0, 0, 9, 9);
-			// Top right finder pattern + separator + format
 			bitMatrix.setRegion(dimension - 8, 0, 8, 9);
-			// Bottom left finder pattern + separator + format
 			bitMatrix.setRegion(0, dimension - 8, 9, 8);
-			
-			// Alignment patterns
 			var max = this.alignmentPatternCenters.length;
 			for (var x = 0; x < max; x++)
 			{
@@ -127,9 +112,9 @@ function Version( versionNumber,  alignmentPatternCenters,  ecBlocks1,  ecBlocks
 				for (var y = 0; y < max; y++)
 				{
 					if ((x == 0 && (y == 0 || y == max - 1)) || (x == max - 1 && y == 0))
-					{
-						// No alignment patterns near the three finder paterns
+				 {
 						continue;
+				 }
 					}
 					bitMatrix.setRegion(this.alignmentPatternCenters[y] - 2, i, 5, 5);
 				}
@@ -215,7 +200,6 @@ Version.decodeVersionInformation=function( versionBits)
 	// If we didn't find a close enough match, fail
 	return null;
 }
-
 function buildVersions()
 {
 	return new Array(new Version(1, new Array(), new ECBlocks(7, new ECB(1, 19)), new ECBlocks(10, new ECB(1, 16)), new ECBlocks(13, new ECB(1, 13)), new ECBlocks(17, new ECB(1, 9))), 
