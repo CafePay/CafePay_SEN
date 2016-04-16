@@ -6,8 +6,16 @@
 
       <div class="container">
         
+        <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <div class="alert alert-success" style="float : left;" ng-if="done">Items purchased.</div>
+        </div>
+          <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-5">
+          <button class="btn btn-primary" ng-click="purchase()" style="float: right;">Purchase</button>
+        </div>
         
-        <button class="btn btn-primary" ng-click="purchase()" style="float: right;">Purchase</button>  <div class="alert alert-success" style="float : left;" ng-if="done">Items purchased.</div>          
+        </div>
+                    
         <table class="table table-hover">
           <thead style="color: #5f6468">
             <tr>

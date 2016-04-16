@@ -64,7 +64,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/customergenerate.html',
             controller: 'customerGenerateController',
             data: {
-                css: 'css/customergenerate.css'
+                css: 'css/complaint.css'
             }
 
         })
