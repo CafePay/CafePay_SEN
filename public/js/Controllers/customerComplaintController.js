@@ -1,59 +1,7 @@
-angular.module('Cafepay.Controllers')
-
-.controller('customerComplaintController',function($scope,$http){
-	
-	$scope.filed = false;
-	$scope.err = false;
-	$scope.invalid = false;
-	$scope.send = function(user){
-
-		
-
-		if(!user){
-				$scope.invalid = true;
-					$scope.filed = false;
-					$scope.err = false;
-
-				return;
-			}
-			else if (!user.complaint || !user.subject){
-				$scope.invalid = true;
-					$scope.filed = false;
-					$scope.err = false;
-
-				return;
-			}
-						$scope.invalid = false;
-
-						console.log(user)
-		$http.post('/customer/sendcomplaint',user).success(function(response){
-			$scope.filed = false;
-			$scope.err = false;
-			$scope.invalid = false;
-				console.log(response)
-				if(response.success == true){
-					$scope.filed = true;
-					$scope.err = false;
-					$scope.invalid = false;
-					console.log("hm1")
-					console.log($scope.filed)
-				}
-				 if(response.success == false){
-					$scope.err = true;
-					$scope.filed = false;
-					$scope.invalid = false;
-					console.log("hm2")
-				}
-		})
-	}
-	$scope.clear = function(){
-
-		$scope.user = {};
-		$scope.filed = false;
-		$scope.err = false;
-	}
-
-
-
-	
-})
+angular.module('Cafepay.Controllers').controller('customerComplaintController',["$scope","$http",function($scope,$http){$scope.filed=!1;$scope.err=!1;$scope.invalid=!1;$scope.send=function(user){if(!user){$scope.invalid=!0;$scope.filed=!1;$scope.err=!1;return}
+else if(!user.complaint||!user.subject){$scope.invalid=!0;$scope.filed=!1;$scope.err=!1;return}
+$scope.invalid=!1;console.log(user)
+$http.post('/customer/sendcomplaint',user).success(function(response){$scope.filed=!1;$scope.err=!1;$scope.invalid=!1;console.log(response)
+if(response.success==!0){$scope.filed=!0;$scope.err=!1;$scope.invalid=!1;console.log($scope.filed)}
+if(response.success==!1){$scope.err=!0;$scope.filed=!1;$scope.invalid=!1}})}
+$scope.clear=function(){$scope.user={};$scope.filed=!1;$scope.err=!1}}])

@@ -2,36 +2,13 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
 .config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
-    // HOME STATES AND NESTED VIEWS ========================================
-        .state('home',{url: '/',templateUrl: 'views/entry.html',controller: 'MainController',data: {css: 'css/entryall.css'}})
-        .state('forbidden', {
-            url: '/forbidden',
-            templateUrl: 'views/forbidden.html'
-        })
-        .state('customer', {
-            url: '/customer',
-            templateUrl: 'views/customerprofile1.html',
-            controller: 'customerProfileController',
-            data: {
-                css: 'css/styles.css'
-            }
-        })
-        .state('vendor', {
-            url: '/vendor',
-            templateUrl: 'views/vendorprofile1.html',
-            controller: 'vendorProfileController',
-            data: {
-                css: 'css/styles.css'
-            }
-        })
+        .state('home',{url: '/',templateUrl: 'views/entry.html',controller: 'MainController',data: {css: 'css/entryall.css'}}).state('forbidden', {url: '/forbidden',templateUrl: 'views/forbidden.html'}).state('customer', {url: '/customer',templateUrl: 'views/customerprofile1.html',controller: 'customerProfileController',data: {css: 'css/styles.css'}})
+        .state('vendor', {url: '/vendor',templateUrl: 'views/vendorprofile1.html',controller: 'vendorProfileController',data: {css: 'css/styles.css'}})
         .state('customer.myqr', {
             url: '/myqrcodes',
             templateUrl: 'views/customermyqr.html',
             controller: 'customerMyqrController',
-            data: {
-                css: 'css/styles.css'
-            }
-        })
+            data: {css: 'css/styles.css'}})
         .state('vendor.scan', {
             url: '/scanqrcodes',
             templateUrl: 'views/vendorscan.html',

@@ -1,10 +1,1 @@
-angular.module('Cafepay.Controllers')
-
-.controller('test',function($scope){
-
-
-	console.log("test")
-
-
-
-})
+angular.module('Cafepay.Controllers').controller('test',["$scope",function($scope){console.log("test")}])
