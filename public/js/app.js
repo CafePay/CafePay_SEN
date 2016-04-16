@@ -53,10 +53,10 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         .state('vendor.scan', {
             url: '/scanqrcodes',
             templateUrl: 'views/vendorscan.html',
-            controller: 'vendorScanController'
-            /*data: {
-                css: 'css/generate1.css'
-            }*/
+            controller: 'vendorScanController',
+            data: {
+                css: 'css/complaint.css'
+            }
 
         })
         .state('customer.generate', {
@@ -71,20 +71,20 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
         .state('customer.recharge', {
             url: '/recharge',
             templateUrl: 'views/customerrecharge.html',
-            controller: 'customerRechargeController'
-            /*data: {
-                css: 'css/profile1.css'
-            }*/
+            controller: 'customerRechargeController',
+            data: {
+                css: 'css/complaint.css'
+            }
 
         })
 
         .state('vendor.withdrawal', {
             url: '/withdrawal',
             templateUrl: 'views/vendorwithdrawal.html',
-            controller: 'vendorWithdrawalController'
-            /*data: {
-                css: 'css/profile1.css'
-            }*/
+            controller: 'vendorWithdrawalController',
+            data: {
+                css: 'css/complaint.css'
+            }
 
         })
         .state('customer.history', {
@@ -128,7 +128,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/customerfeedback.html',
             controller: 'customerFeedbackController',
             data: {
-                css: 'css/customerfeedback.css'
+                css: 'css/complaint.css'
             }
 
         })
@@ -137,7 +137,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/changepassword.html',
             controller: 'ChangepasswordController',
             data: {
-                css: 'css/changepassword.css'
+                css: 'css/complaint.css'
             }
 
         })
@@ -146,7 +146,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/changepassword.html',
             controller: 'ChangepasswordController',
             data: {
-                css: 'css/changepassword.css'
+                css: 'css/complaint.css'
             }
 
         })
@@ -155,7 +155,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/changepassword.html',
             controller: 'ChangepasswordController',
             data: {
-                css: 'css/changepassword.css'
+                css: 'css/complaint.css'
             }
 
         })
@@ -164,7 +164,7 @@ angular.module('Cafepay',['Cafepay.Services','Cafepay.Controllers','ui.router','
             templateUrl: 'views/changepassword.html',
             controller: 'ChangepasswordController',
             data: {
-                css: 'css/styles.css'
+                css: 'css/complaint.css'
             }
 
         })
